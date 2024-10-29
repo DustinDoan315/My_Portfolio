@@ -1,11 +1,5 @@
-import Layout from "../page";
-
 const Blogs = () => {
-  return (
-    <Layout>
-      <h1>Project Detail</h1>
-    </Layout>
-  );
+  return <h1>Project Detail</h1>;
 };
 
 export default Blogs;

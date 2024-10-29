@@ -1,11 +1,5 @@
-import Layout from "@/app/page";
-
 const ProjectPage = () => {
-  return (
-    <Layout>
-      <h1>Project</h1>
-    </Layout>
-  );
+  return <h1>Project</h1>;
 };
 
 export default ProjectPage;
