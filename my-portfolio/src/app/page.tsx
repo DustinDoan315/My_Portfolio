@@ -55,7 +55,7 @@ const SocialLink = ({
   </a>
 );
 
-const Layout = ({}: { children: ReactNode }) => (
+const Layout = () => (
   <div className="flex flex-col min-h-screen bg-gray-100 text-gray-800 dark:text-gray-200">
     <header className="bg-white shadow-md">
       <nav className="container mx-auto flex justify-between items-center p-4">
