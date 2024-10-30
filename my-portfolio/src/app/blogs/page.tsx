@@ -1,5 +1,5 @@
-const Blogs = () => {
-  return <h1>Project Detail</h1>;
+const BlogsPage = () => {
+  return <h1>Blogs Page</h1>;
 };
 
-export default Blogs;
+export default BlogsPage;
