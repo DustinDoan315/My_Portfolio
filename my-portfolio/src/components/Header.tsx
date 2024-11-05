@@ -68,6 +68,17 @@ const Header = () => {
               } rounded px-3 py-1`}>
               Blogs
             </Link>
+
+            <Link
+              onClick={() => handleLinkClick("julia")}
+              href="/julia"
+              className={`transition-colors duration-200 text-base lg:text-xl font-semibold ${
+                activeLink === "julia"
+                  ? "bg-cyan-400 text-white"
+                  : "text-gray-700"
+              } rounded px-3 py-1`}>
+              Julia
+            </Link>
           </div>
         </div>
       </nav>
