@@ -7,7 +7,6 @@ import { Document, Packer, Paragraph, TextRun } from "docx";
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [progress, setProgress] = useState<number>(0);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,29 +21,27 @@ export default function Home() {
     });
   };
 
-  const documentOptions: any = {
-    title: "Formatted Chemical Document",
-  };
-
   const generateDocxFile = (formattedData: string) => {
-    const doc = new Document(documentOptions);
-
     const paragraphs = formattedData
       .split(/<\/?p>/)
       .filter(Boolean)
       .map((line) => {
-        const textRun = new TextRun(
-          line.replace(/<sub>(.*?)<\/sub>/g, (_, sub) => {
-            return `${sub}`;
-          })
-        );
         return new Paragraph({
-          children: [textRun],
+          children: [
+            new TextRun({
+              text: line.replace(/<sub>(.*?)<\/sub>/g, (_, sub) => sub),
+            }),
+          ],
         });
       });
 
-    doc.addSection({
-      children: paragraphs,
+    const doc = new Document({
+      sections: [
+        {
+          properties: {},
+          children: paragraphs,
+        },
+      ],
     });
 
     Packer.toBuffer(doc).then((buffer) => {
@@ -66,7 +63,6 @@ export default function Home() {
     if (!file) return;
 
     setIsLoading(true);
-    setProgress(0);
     setErrorMessage(null);
 
     try {
@@ -80,7 +76,6 @@ export default function Home() {
       }
 
       const formattedData = formatFileContent(value);
-
       generateDocxFile(formattedData);
       console.log("File formatted and generated successfully.");
     } catch (error) {
@@ -119,12 +114,10 @@ export default function Home() {
         {isLoading && (
           <div className="mt-4">
             <progress
-              value={progress}
+              value={50}
               max="100"
               className="w-full h-2 rounded bg-purple-300"></progress>
-            <span className="block text-center text-gray-800">
-              {Math.round(progress)}%
-            </span>
+            <span className="block text-center text-gray-800">50%</span>
           </div>
         )}
 
