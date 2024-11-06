@@ -1,8 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import React, { useState } from "react";
 import mammoth from "mammoth";
-import { Document, Packer, Paragraph, TextRun } from "docx";
+import {
+  Document,
+  IFontAttributesProperties,
+  Packer,
+  Paragraph,
+  TextRun,
+} from "docx";
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
@@ -15,47 +23,97 @@ export default function Home() {
     console.log("Selected file:", selectedFile);
   };
 
-  const formatFileContent = (data: string): string => {
-    return data.replace(/([A-Z][a-z]?)(\d+)/g, (match, element, number) => {
-      return `${element}<sub>${number}</sub>`;
+  const formatFileContent = (htmlContent: string): Paragraph[] => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlContent, "text/html");
+
+    const paragraphs: Paragraph[] = [];
+    const regex = /([A-Za-z\)])(\d*)/g;
+
+    Array.from(doc.body.childNodes).forEach((node) => {
+      if (node.nodeName === "P") {
+        const paragraphRuns: TextRun[] = [];
+
+        Array.from(node.childNodes).forEach((childNode) => {
+          if (childNode.nodeName === "STRONG") {
+            paragraphRuns.push(
+              new TextRun({ text: childNode.textContent || "", bold: true })
+            );
+          } else if (childNode.nodeName === "EM") {
+            paragraphRuns.push(
+              new TextRun({ text: childNode.textContent || "", italics: true })
+            );
+          } else if (childNode.nodeType === Node.TEXT_NODE) {
+            const line = childNode.textContent || "";
+            let match;
+            let lastIndex = 0;
+
+            while ((match = regex.exec(line)) !== null) {
+              const [_, element, number] = match;
+
+              if (match.index > lastIndex) {
+                paragraphRuns.push(
+                  new TextRun(line.substring(lastIndex, match.index))
+                );
+              }
+
+              const parentElement = childNode.parentNode as HTMLElement;
+              const isBold = parentElement?.nodeName === "STRONG";
+              const isItalic = parentElement?.nodeName === "EM";
+
+              const fontSize = parentElement?.style.fontSize || "13px";
+              const sizeInHalfPoints = parseFloat(fontSize) * 2;
+
+              const fontOptions: any = {
+                size: sizeInHalfPoints,
+                bold: isBold,
+                italics: isItalic,
+              };
+
+              paragraphRuns.push(
+                new TextRun({ text: element, font: fontOptions })
+              );
+
+              if (number) {
+                paragraphRuns.push(
+                  new TextRun({
+                    text: number,
+                    subScript: true,
+                  })
+                );
+              }
+
+              lastIndex = regex.lastIndex;
+            }
+
+            if (lastIndex < line.length) {
+              paragraphRuns.push(new TextRun(line.substring(lastIndex)));
+            }
+          }
+        });
+
+        paragraphs.push(new Paragraph({ children: paragraphRuns }));
+      }
     });
+
+    return paragraphs;
   };
 
-  const generateDocxFile = (formattedData: string) => {
-    const paragraphs = formattedData
-      .split(/<\/?p>/)
-      .filter(Boolean)
-      .map((line) => {
-        return new Paragraph({
-          children: [
-            new TextRun({
-              text: line.replace(/<sub>(.*?)<\/sub>/g, (_, sub) => sub),
-            }),
-          ],
-        });
-      });
-
+  const generateDocxFile = async (paragraphs: Paragraph[]) => {
     const doc = new Document({
       sections: [
         {
-          properties: {},
           children: paragraphs,
         },
       ],
     });
 
-    Packer.toBuffer(doc).then((buffer) => {
-      const blob = new Blob([buffer], {
-        type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-      });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "formatted_document.docx";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    });
+    const blob = await Packer.toBlob(doc);
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "formatted_document.docx";
+    a.click();
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -70,12 +128,15 @@ export default function Home() {
       console.log("Reading file...");
 
       const { value, messages } = await mammoth.convertToHtml({ arrayBuffer });
+      console.log("Raw file content:", value);
 
       if (messages.length > 0) {
         console.warn("Mammoth messages:", messages);
       }
 
       const formattedData = formatFileContent(value);
+      console.log("Formatted data:", formattedData);
+
       generateDocxFile(formattedData);
       console.log("File formatted and generated successfully.");
     } catch (error) {

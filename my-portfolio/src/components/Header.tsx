@@ -70,14 +70,14 @@ const Header = () => {
             </Link>
 
             <Link
-              onClick={() => handleLinkClick("julia")}
-              href="/julia"
+              onClick={() => handleLinkClick("tools")}
+              href="/tools"
               className={`transition-colors duration-200 text-base lg:text-xl font-semibold ${
-                activeLink === "julia"
+                activeLink === "tools"
                   ? "bg-cyan-400 text-white"
                   : "text-gray-700"
               } rounded px-3 py-1`}>
-              Julia
+              Tools
             </Link>
           </div>
         </div>
