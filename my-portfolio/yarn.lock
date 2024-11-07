@@ -484,6 +484,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/diff@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "@types/diff@npm:6.0.0"
+  checksum: e29e3c3e36dc8de159794a4695be5a643257ed2ca209758b558ed3b11143c1857b8397ef507795c8067ac25429bc72033295b8ceac4d8fbff6b214fc9b74ae96
+  languageName: node
+  linkType: hard
+
 "@types/formidable@npm:^3.4.5":
   version: 3.4.5
   resolution: "@types/formidable@npm:3.4.5"
@@ -1347,6 +1354,13 @@ __metadata:
   version: 1.2.2
   resolution: "didyoumean@npm:1.2.2"
   checksum: d5d98719d58b3c2fa59663c4c42ba9716f1fd01245c31d5fce31915bd3aa26e6aac149788e007358f778ebbd68a2256eb5973e8ca6f221df221ba060115acf2e
+  languageName: node
+  linkType: hard
+
+"diff@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "diff@npm:7.0.0"
+  checksum: 5db0d339476b18dfbc8a08a7504fbcc74789eec626c8d20cf2cdd1871f1448962888128f4447c8f50a1e41a80decfe5e8489c375843b8cf1d42b7c2b611da4e1
   languageName: node
   linkType: hard
 
@@ -3130,11 +3144,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "my-portfolio@workspace:."
   dependencies:
+    "@types/diff": ^6.0.0
     "@types/formidable": ^3.4.5
     "@types/node": ^20
     "@types/react": ^18
     "@types/react-dom": ^18
     axios: ^1.7.7
+    diff: ^7.0.0
     docx: ^9.0.2
     eslint: ^8
     eslint-config-next: 15.0.1

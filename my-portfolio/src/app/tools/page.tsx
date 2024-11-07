@@ -6,7 +6,14 @@ const tools = [
     title: "Chemistry Formatter",
     name: "formatter",
     description:
-      "Chemistry Formatter Tool: Formats chemical equations and compounds with proper subscripts and bold elements.",
+      "Formats chemical equations and compounds with proper subscripts and bold elements.",
+  },
+  {
+    image: "/diff.png",
+    title: "Check Difference",
+    name: "checkdifference",
+    description:
+      "A real-time text difference checker that highlights additions and deletions line-by-line with line indexing.",
   },
 ];
 

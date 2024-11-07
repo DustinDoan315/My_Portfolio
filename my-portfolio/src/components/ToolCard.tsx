@@ -8,7 +8,7 @@ const ToolCard = ({ item }: any) => {
       <img
         src={item.image}
         alt={item.title}
-        className="w-full h-42 rounded-lg mb-3 object-cover"
+        className="w-full h-36 rounded-lg mb-3 object-cover"
       />
 
       <h3 className="text-lg font-semibold text-black">{item.title}</h3>
@@ -17,7 +17,7 @@ const ToolCard = ({ item }: any) => {
 
       <Link href={`/tools/${item.name}`}>
         <button className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-200">
-          Use this tool
+          Try
         </button>
       </Link>
     </div>
