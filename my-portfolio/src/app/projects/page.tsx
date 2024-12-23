@@ -1,4 +1,4 @@
-import { projectItems } from "@/utils/fakedata";
+import { projectItems } from "@/utils/mock";
 
 /* eslint-disable @next/next/no-img-element */
 const ProjectPage = () => {
@@ -13,7 +13,7 @@ const ProjectPage = () => {
               <img
                 src={item.image}
                 alt={item.title}
-                className="w-full h-full rounded-t-lg mb-3"
+                className="w-56 h-full rounded-t-lg mb-3"
               />
               <h3 className="text-lg font-semibold text-gray-700">
                 {item.title}

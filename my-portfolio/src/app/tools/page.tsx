@@ -15,6 +15,13 @@ const tools = [
     description:
       "A real-time text difference checker that highlights additions and deletions line-by-line with line indexing.",
   },
+  {
+    image: "/generator.png",
+    title: "Generate Code",
+    name: "generatecode",
+    description:
+      "The Backend Project Generator creates Node.js backend projects, generating essential files in the Desktop/Nodejs folder based on user input.",
+  },
 ];
 
 const ToolList = () => {

@@ -1,4 +1,4 @@
-import { blogPosts } from "@/utils/fakedata";
+import { blogPosts } from "@/utils/mock";
 
 const BlogsPage = () => {
   return (
