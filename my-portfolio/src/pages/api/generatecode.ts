@@ -4,6 +4,7 @@ import fs from "fs-extra";
 import path from "path";
 
 export default async function handler(req: any, res: any) {
+  // Allow only POST method
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed." });
   }
@@ -20,6 +21,7 @@ export default async function handler(req: any, res: any) {
     }
 
     const projectRoot = path.join(folderPath, projectName);
+    console.log(`Creating project at: ${projectRoot}`);
 
     const directories = [
       "config",
@@ -31,11 +33,15 @@ export default async function handler(req: any, res: any) {
     ];
 
     directories.forEach((dir) => {
-      fs.mkdirSync(path.join(projectRoot, dir), { recursive: true });
+      const dirPath = path.join(projectRoot, dir);
+      console.log(`Creating directory: ${dirPath}`);
+      fs.mkdirSync(dirPath, { recursive: true });
     });
 
+    const envFilePath = path.join(projectRoot, ".env");
+    console.log(`Creating .env file at: ${envFilePath}`);
     fs.writeFileSync(
-      path.join(projectRoot, `${projectName}.env`),
+      envFilePath,
       "DB_HOST=localhost\nDB_USER=root\nDB_PASS=password\nDB_NAME=crypto_tracker"
     );
 
