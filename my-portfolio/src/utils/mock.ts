@@ -5,6 +5,7 @@ export const projectItems = [
     title: "See Xe",
     description:
       "Description of Project 1, highlighting key features or tech used.",
+    category: "IoT",
   },
   {
     id: 2,
@@ -12,6 +13,7 @@ export const projectItems = [
     title: "Shopping App",
     description:
       "Description of Project 2, highlighting key features or tech used.",
+    category: "E-commerce",
   },
   {
     id: 3,
@@ -19,6 +21,21 @@ export const projectItems = [
     title: "Checking App",
     description:
       "Description of Project 3, highlighting key features or tech used.",
+    category: "Finance",
+  },
+  {
+    id: 4,
+    image: "/pj4.png",
+    title: "Crypto Tracker",
+    description: "A real-time cryptocurrency tracker app.",
+    category: "Blockchain",
+  },
+  {
+    id: 5,
+    image: "/pj5.png",
+    title: "Home Automation System",
+    description: "Automate your home with this IoT system.",
+    category: "IoT",
   },
 ];
 

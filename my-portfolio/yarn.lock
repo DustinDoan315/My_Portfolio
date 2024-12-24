@@ -3225,6 +3225,7 @@ __metadata:
     fs-extra: ^11.2.0
     mammoth: ^1.8.0
     next: 15.0.1
+    os: ^0.1.2
     path: ^0.12.7
     postcss: ^8
     react: 19.0.0-rc-69d4b800-20241021
@@ -3489,6 +3490,13 @@ __metadata:
     type-check: ^0.4.0
     word-wrap: ^1.2.5
   checksum: ecbd010e3dc73e05d239976422d9ef54a82a13f37c11ca5911dff41c98a6c7f0f163b27f922c37e7f8340af9d36febd3b6e9cef508f3339d4c393d7276d716bb
+  languageName: node
+  linkType: hard
+
+"os@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "os@npm:0.1.2"
+  checksum: dc2d99759eef13f5dc47ddb12c67b9760a7196fd83a35a7aec2d75b82f91163ca1d4e8872238f8c2a35f4cddd5adf5ce6638a234c0563c748d3cd1d69a9f7153
   languageName: node
   linkType: hard
 

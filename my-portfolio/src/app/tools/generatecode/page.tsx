@@ -4,6 +4,7 @@ import { useState } from "react";
 
 const GenerateBackendStructure: React.FC = () => {
   const [projectName, setProjectName] = useState("");
+  const [folderPath, setFolderPath] = useState("");
   const [progress, setProgress] = useState(0);
   const [message, setMessage] = useState("");
 
@@ -17,7 +18,7 @@ const GenerateBackendStructure: React.FC = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ projectName }),
+        body: JSON.stringify({ projectName, folderPath }),
       });
 
       if (response.ok) {
@@ -25,16 +26,14 @@ const GenerateBackendStructure: React.FC = () => {
         setMessage(data.message);
         setProgress(100);
       } else {
-        const errorData = await response.json();
-        setMessage(errorData.error);
+        const errorText = await response.text();
+        setMessage(`Error: ${errorText}`);
         setProgress(0);
       }
     } catch (error) {
       setMessage("Failed to create project.");
       setProgress(0);
-      console.log("====================================");
-      console.log(error);
-      console.log("====================================");
+      console.error("Error:", error);
     }
   };
 
@@ -49,6 +48,15 @@ const GenerateBackendStructure: React.FC = () => {
         placeholder="Project Name"
         value={projectName}
         onChange={(e) => setProjectName(e.target.value)}
+        required
+        className="border p-2 mb-4 rounded text-black"
+      />
+
+      <input
+        type="text"
+        placeholder="Folder Path"
+        value={folderPath}
+        onChange={(e) => setFolderPath(e.target.value)}
         required
         className="border p-2 mb-4 rounded text-black"
       />
