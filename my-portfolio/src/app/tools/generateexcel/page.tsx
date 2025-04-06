@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // pages/index.tsx
 "use client";
 
@@ -114,41 +115,6 @@ const Home: React.FC = () => {
     calculateTotals();
   };
 
-  // Add new condition
-  const addCondition = (): void => {
-    setConditions([
-      ...conditions,
-      { name: `Condition ${conditions.length + 1}`, total: 0 },
-    ]);
-
-    // Add a new measurement slot for each time point
-    const newTimePoints = timePoints.map((point) => ({
-      ...point,
-      measurements: [...point.measurements, 0],
-    }));
-
-    setTimePoints(newTimePoints);
-  };
-
-  // Remove condition
-  const removeCondition = (index: number): void => {
-    if (conditions.length <= 1) return;
-
-    const newConditions = [...conditions];
-    newConditions.splice(index, 1);
-    setConditions(newConditions);
-
-    // Remove the measurement for this condition from each time point
-    const newTimePoints = timePoints.map((point) => {
-      const newMeasurements = [...point.measurements];
-      newMeasurements.splice(index, 1);
-      return { ...point, measurements: newMeasurements };
-    });
-
-    setTimePoints(newTimePoints);
-    calculateTotals();
-  };
-
   // Generate Excel file
   const generateExcel = (): void => {
     // Create worksheet
@@ -192,7 +158,7 @@ const Home: React.FC = () => {
 
     // Add totals row at the bottom
     const totalsRow = [""];
-    conditions.forEach((condition) => {
+    conditions.forEach((condition: any) => {
       totalsRow.push(condition.total);
     });
     XLSX.utils.sheet_add_aoa(ws, [totalsRow], {
