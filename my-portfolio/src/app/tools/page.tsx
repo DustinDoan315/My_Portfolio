@@ -17,8 +17,8 @@ const tools = [
   },
   {
     image: "/generator.png",
-    title: "Generate Code",
-    name: "generatecode",
+    title: "Generate Excel",
+    name: "generateexcel",
     description:
       "The Backend Project Generator creates Node.js backend projects, generating essential files in the Desktop/Nodejs folder based on user input.",
   },
