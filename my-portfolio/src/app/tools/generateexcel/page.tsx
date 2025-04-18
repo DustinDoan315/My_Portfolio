@@ -183,25 +183,25 @@ const Home: React.FC = () => {
   };
 
   // Handle data extracted from OCR
-  const handleDataExtracted = (extractedData: ExtractedData): void => {
-    if (extractedData.experimentParams) {
-      setExperimentParams(extractedData.experimentParams);
-    }
+  // const handleDataExtracted = (extractedData: ExtractedData): void => {
+  //   if (extractedData.experimentParams) {
+  //     setExperimentParams(extractedData.experimentParams);
+  //   }
 
-    if (extractedData.initialValue && !isNaN(extractedData.initialValue)) {
-      setInitialValue(extractedData.initialValue);
-    }
+  //   if (extractedData.initialValue && !isNaN(extractedData.initialValue)) {
+  //     setInitialValue(extractedData.initialValue);
+  //   }
 
-    if (extractedData.conditions && extractedData.conditions.length > 0) {
-      setConditions(extractedData.conditions);
-    }
+  //   if (extractedData.conditions && extractedData.conditions.length > 0) {
+  //     setConditions(extractedData.conditions);
+  //   }
 
-    if (extractedData.timePoints && extractedData.timePoints.length > 0) {
-      setTimePoints(extractedData.timePoints);
-      // Recalculate totals after setting time points
-      setTimeout(calculateTotals, 100);
-    }
-  };
+  //   if (extractedData.timePoints && extractedData.timePoints.length > 0) {
+  //     setTimePoints(extractedData.timePoints);
+  //     // Recalculate totals after setting time points
+  //     setTimeout(calculateTotals, 100);
+  //   }
+  // };
 
   // Initialize and calculate totals on component mount
   useEffect(() => {
@@ -231,7 +231,7 @@ const Home: React.FC = () => {
                 Step 1: Upload Hình ảnh
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <ApiIntegration onDataExtracted={handleDataExtracted} />
+                <ApiIntegration />
               </div>
             </div>
           </div>
