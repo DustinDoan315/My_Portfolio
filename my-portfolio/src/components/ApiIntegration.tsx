@@ -150,7 +150,7 @@ const ApiIntegration: React.FC<ApiIntegrationProps> = ({ onTextExtracted }) => {
           } else {
             throw new Error(`${file.name} - API Error (${response.status}): ${JSON.stringify(errorData)}`);
           }
-        } catch (jsonError) {
+        } catch {
           throw new Error(`${file.name} - API Error: ${response.status} ${response.statusText}`);
         }
       }
