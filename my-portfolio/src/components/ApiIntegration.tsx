@@ -3,7 +3,7 @@
 
 // components/ApiIntegration.tsx
 import React, { useState } from "react";
-import { Document, Packer, Paragraph, TextRun } from "docx";
+import { Document, Packer, Paragraph } from "docx";
 import { saveAs } from "file-saver";
 
 interface ApiIntegrationProps {
