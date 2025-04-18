@@ -3,48 +3,128 @@
 
 // components/ApiIntegration.tsx
 import React, { useState } from "react";
-import { ExtractedData } from "../../types";
+import { Document, Packer, Paragraph, TextRun } from "docx";
+import { saveAs } from "file-saver";
 
 interface ApiIntegrationProps {
-  onDataExtracted: (data: ExtractedData) => void;
+  onTextExtracted?: (text: string) => void;
 }
 
-const ApiIntegration: React.FC<ApiIntegrationProps> = ({ onDataExtracted }) => {
+const MAX_FILE_SIZE = 200 * 1024; // 200KB in bytes
+const MAX_FILES = 2;
+
+const ApiIntegration: React.FC<ApiIntegrationProps> = ({ onTextExtracted }) => {
   const apiKey = "Lzb+wAAbxvC0cI/ZHDyV6A==3xcxvOs0c1HUoiig";
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [progress, setProgress] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [processingStatus, setProcessingStatus] = useState<{[key: string]: string}>({});
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    if (files && files.length > 0) {
-      setImageFile(files[0]);
-      setErrorMessage("");
+    if (!files || files.length === 0) return;
+    
+    // Convert FileList to Array for easier manipulation
+    const fileArray = Array.from(files);
+    
+    // Validate file count
+    if (fileArray.length > MAX_FILES) {
+      setErrorMessage(`You can only upload a maximum of ${MAX_FILES} images at once.`);
+      return;
+    }
+    
+    // Validate file sizes
+    const oversizedFiles = fileArray.filter(file => file.size > MAX_FILE_SIZE);
+    if (oversizedFiles.length > 0) {
+      setErrorMessage(`The following files exceed the 200KB limit: ${
+        oversizedFiles.map(file => `${file.name} (${Math.round(file.size / 1024)}KB)`).join(', ')
+      }`);
+      return;
+    }
+    
+    setImageFiles(fileArray);
+    setErrorMessage("");
+  };
+
+  const generateWordDocument = (extractedTexts: {[filename: string]: string}) => {
+    try {
+      setProgress("Generating Word document...");
+      
+      // Combine all texts with headers for each image
+      const combinedParagraphs: Paragraph[] = [];
+
+      // Add each image's text with a header
+      Object.entries(extractedTexts).forEach(([filename, text], index) => {
+        // Add a page break after the first image content (if not the first image)
+        if (index > 0) {
+          combinedParagraphs.push(
+            new Paragraph({
+              text: "",
+              pageBreakBefore: true,
+            })
+          );
+        }
+        
+        // Add image filename as header
+        combinedParagraphs.push(
+          new Paragraph({
+            text: `Image: ${filename}`,
+            heading: "Heading2",
+            spacing: { before: 100, after: 100 },
+          })
+        );
+        
+        // Add extracted text
+        combinedParagraphs.push(
+          new Paragraph({
+            text: text,
+            spacing: { after: 200 },
+          })
+        );
+      });
+      
+      // Create a single document with all content
+      const doc = new Document({
+        sections: [
+          {
+            properties: {},
+            children: combinedParagraphs,
+          },
+        ],
+      });
+      
+      // Generate a filename based on current date/time
+      const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+      const docFilename = `extracted_text_${timestamp}.docx`;
+      
+      // Generate and save document
+      Packer.toBlob(doc).then((blob) => {
+        saveAs(blob, docFilename);
+        setProgress("Word document generated successfully!");
+      });
+      
+    } catch (error) {
+      console.error("Word document generation error:", error);
+      setErrorMessage(
+        `Error generating Word document: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`
+      );
     }
   };
 
-  const callApiNinjas = async () => {
-    if (!imageFile) {
-      setErrorMessage("Please select an image first");
-      return;
-    }
-
-    if (!apiKey) {
-      setErrorMessage("Please enter your API Ninjas API key");
-      return;
-    }
-
-    setIsLoading(true);
-    setProgress("Preparing image...");
-    setErrorMessage("");
-
+  const processImage = async (file: File): Promise<string> => {
     try {
+      // Update status for this specific file
+      setProcessingStatus(prev => ({
+        ...prev,
+        [file.name]: "Uploading to API..."
+      }));
+      
       // Create FormData for multipart/form-data request
       const formData = new FormData();
-      formData.append("image", imageFile);
-
-      setProgress("Uploading to API...");
+      formData.append("image", file);
 
       // Call API Ninjas endpoint with FormData
       const response = await fetch(
@@ -58,142 +138,109 @@ const ApiIntegration: React.FC<ApiIntegrationProps> = ({ onDataExtracted }) => {
         }
       );
 
+      // Handle error responses
       if (!response.ok) {
-        throw new Error(`API Error: ${response.status} ${response.statusText}`);
+        // Try to get detailed error information
+        try {
+          const errorData = await response.json();
+          
+          // Check for specific error message format
+          if (errorData.error) {
+            throw new Error(`${file.name}: ${errorData.error}`);
+          } else {
+            throw new Error(`${file.name} - API Error (${response.status}): ${JSON.stringify(errorData)}`);
+          }
+        } catch (jsonError) {
+          throw new Error(`${file.name} - API Error: ${response.status} ${response.statusText}`);
+        }
       }
 
-      setProgress("Processing response...");
+      // Update status for this specific file
+      setProcessingStatus(prev => ({
+        ...prev,
+        [file.name]: "Processing response..."
+      }));
+      
       const jsonResult = await response.json();
-
-      // Parse the API response
-      parseApiResponse(jsonResult);
+      
+      // Just extract the text from each item in the response
+      return jsonResult.map((item: any) => item.text).join('\n');
+      
     } catch (error) {
-      console.error("API Error:", error);
-      setErrorMessage(
-        `API Error: ${error instanceof Error ? error.message : "Unknown error"}`
-      );
-    } finally {
-      setIsLoading(false);
-      setProgress("");
+      console.error(`Error processing ${file.name}:`, error);
+      throw error;
     }
   };
 
-  const parseApiResponse = (jsonResult: any) => {
+  const callApiNinjas = async () => {
+    if (imageFiles.length === 0) {
+      setErrorMessage("Please select at least one image");
+      return;
+    }
+
+    setIsLoading(true);
+    setProgress(`Processing ${imageFiles.length} image(s)...`);
+    setErrorMessage("");
+    setProcessingStatus({});
+
     try {
-      // Initialize data structure
-      const data: ExtractedData = {
-        experimentParams: {
-          date: "",
-          sampleId: "A",
-          concentration: "",
-        },
-        initialValue: 0,
-        conditions: [
-          { name: "ZnO - 200", total: 0 },
-          { name: "ZnO - 300", total: 0 },
-        ],
-        timePoints: [],
-      };
-
-      // Sort elements by y position (top to bottom)
-      const sortedElements = [...jsonResult].sort((a: any, b: any) => {
-        return a.bounding_box.y1 - b.bounding_box.y1;
-      });
-
-      // Extract numbers from the text elements
-      const allNumbers: number[] = [];
-
-      sortedElements.forEach((el: any) => {
-        // Extract decimal numbers
-        const decimalMatches = el.text.match(/\d+[.,]\d+/g);
-        if (decimalMatches) {
-          decimalMatches.forEach((match: string) => {
-            allNumbers.push(parseFloat(match.replace(",", ".")));
-          });
-        }
-
-        // Extract integers
-        const intMatches = el.text.match(/\b\d+\b/g);
-        if (intMatches) {
-          intMatches.forEach((match: string) => {
-            if (!match.includes(",") && !match.includes(".")) {
-              allNumbers.push(parseInt(match));
-            }
-          });
-        }
-      });
-
-      // First number might be the initial value
-      if (allNumbers.length > 0) {
-        data.initialValue = allNumbers[0];
-      }
-
-      // Extract time points
-      // Assume a pattern of measurement1, measurement2, time
-      const timeValues = [30, 60, 90, 120, 150, 180];
-
-      for (let i = 1; i < allNumbers.length - 1; i += 3) {
-        const timeIndex = Math.floor((i - 1) / 3);
-        if (i + 2 < allNumbers.length && timeIndex < timeValues.length) {
-          const measurement1 = allNumbers[i];
-          const measurement2 = allNumbers[i + 1];
-          const time = allNumbers[i + 2] || timeValues[timeIndex];
-
-          // Add time point if values make sense
-          if (!isNaN(measurement1) && !isNaN(measurement2) && !isNaN(time)) {
-            data.timePoints.push({
-              time,
-              measurements: [measurement1, measurement2],
-            });
-          }
+      // Process each image sequentially to avoid rate limiting
+      const results: {[filename: string]: string} = {};
+      
+      // Process images one by one
+      for (const file of imageFiles) {
+        try {
+          const extractedText = await processImage(file);
+          results[file.name] = extractedText;
+          
+          // Update status for this specific file
+          setProcessingStatus(prev => ({
+            ...prev,
+            [file.name]: "Text extracted successfully"
+          }));
+        } catch (error) {
+          // Update status for this specific file
+          setProcessingStatus(prev => ({
+            ...prev,
+            [file.name]: `Failed: ${error instanceof Error ? error.message : "Unknown error"}`
+          }));
         }
       }
-
-      // If no time points detected, use default time values
-      if (data.timePoints.length === 0) {
-        const measurements: number[][] = [];
-
-        // Group numbers in pairs, skipping the first (initial value)
-        for (let i = 1; i < allNumbers.length; i += 2) {
-          if (i + 1 < allNumbers.length) {
-            measurements.push([allNumbers[i], allNumbers[i + 1]]);
-          }
+      
+      // If we have at least one successful result, generate documents
+      if (Object.keys(results).length > 0) {
+        generateWordDocument(results);
+        
+        // Notify parent component if callback exists
+        if (onTextExtracted) {
+          // Combine all extracted texts
+          const combinedText = Object.values(results).join('\n\n--- Next Image ---\n\n');
+          onTextExtracted(combinedText);
         }
-
-        // Assign time values to measurements
-        for (
-          let i = 0;
-          i < Math.min(measurements.length, timeValues.length);
-          i++
-        ) {
-          data.timePoints.push({
-            time: timeValues[i],
-            measurements: measurements[i],
-          });
-        }
+      } else {
+        setErrorMessage("No text could be extracted from any of the images.");
       }
-
-      // Call the callback with the extracted data
-      onDataExtracted(data);
     } catch (error) {
-      console.error("Parsing error:", error);
+      console.error("Processing error:", error);
       setErrorMessage(
-        `Error parsing API response: ${
-          error instanceof Error ? error.message : "Unknown error"
-        }`
+        `${error instanceof Error ? error.message : "Unknown error"}`
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="mb-8 p-6 bg-white rounded-lg shadow-md">
+    <div className="flex justify-center w-full">
+       <div className="mb-8 p-6 bg-white rounded-lg shadow-md">
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          Upload Image
+          Upload Images (Max 2 images, each &lt;200KB)
         </label>
         <input
           type="file"
           accept="image/*"
+          multiple
           onChange={handleFileChange}
           className="block w-full text-sm text-gray-500
                   file:mr-4 file:py-2 file:px-4
@@ -203,21 +250,48 @@ const ApiIntegration: React.FC<ApiIntegrationProps> = ({ onDataExtracted }) => {
                   hover:file:bg-blue-100"
           disabled={isLoading}
         />
+        <div className="text-xs text-gray-500 mt-1">
+          Selected: {imageFiles.length} image(s)
+          {imageFiles.length > 0 && (
+            <ul className="mt-1">
+              {imageFiles.map((file, index) => (
+                <li key={index}>
+                  {file.name} ({Math.round(file.size / 1024)}KB)
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
 
       <button
         onClick={callApiNinjas}
-        disabled={isLoading || !imageFile || !apiKey}
-        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-400">
-        {isLoading ? "Processing..." : "Generate from Image to Data"}
+        disabled={isLoading || imageFiles.length === 0}
+        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-400 ">
+        {isLoading ? "Processing..." : "Extract Text to Word Document"}
       </button>
 
-      {progress && <div className="mt-2 text-sm text-gray-800">{progress}</div>}
+      {progress && <div className="mt-2 text-sm text-gray-600">{progress}</div>}
+      
+      {/* Individual file processing status */}
+      {Object.keys(processingStatus).length > 0 && (
+        <div className="mt-2">
+          <h4 className="text-sm font-medium text-gray-700">Processing Status:</h4>
+          <ul className="mt-1 text-xs">
+            {Object.entries(processingStatus).map(([filename, status]) => (
+              <li key={filename} className="mb-1">
+                <span className="font-medium">{filename}:</span> {status}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {errorMessage && (
         <div className="mt-2 text-sm text-red-500">{errorMessage}</div>
       )}
     </div>
+   </div>
   );
 };
 
