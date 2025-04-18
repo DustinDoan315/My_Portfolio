@@ -12,7 +12,6 @@ import {
   ExperimentParams,
   Condition,
   TimePoint,
-  ExtractedData,
 } from "../../../../types";
 
 const Home: React.FC = () => {
