@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // components/JsonParser.tsx
-"use client";
-import React, { useState } from "react";
-import { ExtractedData } from "../../types";
+'use client';
+import React, { useState } from 'react';
+import { ExtractedData } from '../../types';
 
 interface JsonParserProps {
   onDataExtracted: (data: ExtractedData) => void;
@@ -19,16 +19,16 @@ interface TextElement {
 }
 
 const JsonParser: React.FC<JsonParserProps> = ({ onDataExtracted }) => {
-  const [jsonInput, setJsonInput] = useState<string>("");
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [jsonInput, setJsonInput] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const parseJson = () => {
     try {
-      setErrorMessage("");
+      setErrorMessage('');
 
       // Check if the input is empty
       if (!jsonInput.trim()) {
-        setErrorMessage("Please enter JSON data");
+        setErrorMessage('Please enter JSON data');
         return;
       }
 
@@ -44,21 +44,21 @@ const JsonParser: React.FC<JsonParserProps> = ({ onDataExtracted }) => {
           // Remove any potential leading/trailing characters that might cause issues
           const cleanedInput = jsonInput
             .trim()
-            .replace(/^[\s\n]*\[/, "[") // Clean start of array
-            .replace(/\][\s\n]*$/, "]"); // Clean end of array
+            .replace(/^[\s\n]*\[/, '[') // Clean start of array
+            .replace(/\][\s\n]*$/, ']'); // Clean end of array
           textElements = JSON.parse(cleanedInput);
         } catch (secondError) {
-          console.error("Second parsing attempt failed:", secondError);
+          console.error('Second parsing attempt failed:', secondError);
           // If still failing, check if the input might be a JSON object with a data property
           try {
             const jsonObj = JSON.parse(jsonInput);
             if (Array.isArray(jsonObj.data)) {
               textElements = jsonObj.data;
             } else {
-              throw new Error("Could not find data array in JSON");
+              throw new Error('Could not find data array in JSON');
             }
           } catch (thirdError) {
-            console.error("Third parsing attempt failed:", thirdError);
+            console.error('Third parsing attempt failed:', thirdError);
             // If all parsing attempts fail, throw the original error
             throw initialError;
           }
@@ -68,7 +68,7 @@ const JsonParser: React.FC<JsonParserProps> = ({ onDataExtracted }) => {
       // Verify we have an array
       if (!Array.isArray(textElements)) {
         setErrorMessage(
-          "Invalid JSON format: Expected an array of text elements"
+          'Invalid JSON format: Expected an array of text elements'
         );
         return;
       }
@@ -76,15 +76,15 @@ const JsonParser: React.FC<JsonParserProps> = ({ onDataExtracted }) => {
       // Initialize data structure
       const data: ExtractedData = {
         experimentParams: {
-          date: "",
-          sampleId: "A",
-          concentration: "",
+          date: '',
+          sampleId: 'A',
+          concentration: '',
         },
         initialValue: 0,
         conditions: [],
         timePoints: [],
         metadata: {
-          extractionMethod: "json",
+          extractionMethod: 'json',
           processedAt: new Date(),
           rawData: textElements,
         },
@@ -95,7 +95,7 @@ const JsonParser: React.FC<JsonParserProps> = ({ onDataExtracted }) => {
         return a.bounding_box.y1 - b.bounding_box.y1;
       });
 
-      console.log("Sorted elements:", sortedElements);
+      console.log('Sorted elements:', sortedElements);
 
       // Group elements by their approximate y position (lines)
       const lineThreshold = 15; // pixels
@@ -131,7 +131,7 @@ const JsonParser: React.FC<JsonParserProps> = ({ onDataExtracted }) => {
         line.sort((a, b) => a.bounding_box.x1 - b.bounding_box.x1);
       });
 
-      console.log("Grouped lines:", lines);
+      console.log('Grouped lines:', lines);
 
       // Extract all numbers from the text elements
       const allNumbers: {
@@ -147,7 +147,7 @@ const JsonParser: React.FC<JsonParserProps> = ({ onDataExtracted }) => {
         if (decimalMatches) {
           decimalMatches.forEach((match) => {
             allNumbers.push({
-              value: parseFloat(match.replace(",", ".")),
+              value: parseFloat(match.replace(',', '.')),
               isDecimal: true,
               text: match,
               y: el.bounding_box.y1,
@@ -181,12 +181,12 @@ const JsonParser: React.FC<JsonParserProps> = ({ onDataExtracted }) => {
         }
 
         // Look for sample ID
-        if (el.text.includes("Sample") || el.text.includes("ID")) {
-          data.experimentParams.sampleId = "A"; // Default
+        if (el.text.includes('Sample') || el.text.includes('ID')) {
+          data.experimentParams.sampleId = 'A'; // Default
         }
 
         // Look for Ban dau
-        if (el.text.includes("Ban") || el.text.includes("dau")) {
+        if (el.text.includes('Ban') || el.text.includes('dau')) {
           // Find the closest number below this text (likely the initial value)
           const banDauY = el.bounding_box.y1;
           const initialValues = allNumbers.filter(
@@ -198,7 +198,7 @@ const JsonParser: React.FC<JsonParserProps> = ({ onDataExtracted }) => {
         }
 
         // Look for ZnO conditions
-        if (el.text.includes("ZnO")) {
+        if (el.text.includes('ZnO')) {
           let conditionName = el.text;
           // If next elements on same line are part of the condition name, add them
           const sameLineElements = lines.find((line) => line.includes(el));
@@ -206,7 +206,7 @@ const JsonParser: React.FC<JsonParserProps> = ({ onDataExtracted }) => {
             const elIndex = sameLineElements.indexOf(el);
             if (elIndex >= 0 && elIndex < sameLineElements.length - 1) {
               const nextElements = sameLineElements.slice(elIndex + 1);
-              conditionName += " " + nextElements.map((e) => e.text).join(" ");
+              conditionName += ' ' + nextElements.map((e) => e.text).join(' ');
             }
           }
           data.conditions.push({ name: conditionName.trim(), total: 0 });
@@ -216,7 +216,7 @@ const JsonParser: React.FC<JsonParserProps> = ({ onDataExtracted }) => {
       // Sort numbers by y position
       allNumbers.sort((a, b) => a.y - b.y);
 
-      console.log("All extracted numbers:", allNumbers);
+      console.log('All extracted numbers:', allNumbers);
 
       // If we found an initial value from Ban dau, remove it from allNumbers
       if (data.initialValue > 0) {
@@ -235,8 +235,8 @@ const JsonParser: React.FC<JsonParserProps> = ({ onDataExtracted }) => {
       // If we didn't find any conditions, add default ones
       if (data.conditions.length === 0) {
         data.conditions = [
-          { name: "ZnO - thuan", total: 0 },
-          { name: "ZnO - special", total: 0 },
+          { name: 'ZnO - thuan', total: 0 },
+          { name: 'ZnO - special', total: 0 },
         ];
       }
 
@@ -314,15 +314,15 @@ const JsonParser: React.FC<JsonParserProps> = ({ onDataExtracted }) => {
         ];
       }
 
-      console.log("Extracted data:", data);
+      console.log('Extracted data:', data);
 
       // Call the callback with the extracted data
       onDataExtracted(data);
     } catch (error) {
-      console.error("JSON parsing error:", error);
+      console.error('JSON parsing error:', error);
       setErrorMessage(
         `JSON parsing error: ${
-          error instanceof Error ? error.message : "Unknown error"
+          error instanceof Error ? error.message : 'Unknown error'
         }`
       );
     }
@@ -346,7 +346,8 @@ const JsonParser: React.FC<JsonParserProps> = ({ onDataExtracted }) => {
 
       <button
         onClick={parseJson}
-        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
         Process JSON
       </button>
 

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
+'use client';
 
 // components/DirectTextParser.tsx
-import React, { useState } from "react";
-import { ExtractedData, TimePoint } from "../../types";
+import React, { useState } from 'react';
+import { ExtractedData, TimePoint } from '../../types';
 
 interface DirectTextParserProps {
   onDataExtracted: (data: ExtractedData) => void;
@@ -12,19 +12,19 @@ interface DirectTextParserProps {
 const DirectTextParser: React.FC<DirectTextParserProps> = ({
   onDataExtracted,
 }) => {
-  const [inputText, setInputText] = useState<string>("");
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [inputText, setInputText] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const parseText = () => {
     try {
-      setErrorMessage("");
+      setErrorMessage('');
 
       // Initialize data structure
       const data: ExtractedData = {
         experimentParams: {
-          date: "",
-          sampleId: "A",
-          concentration: "",
+          date: '',
+          sampleId: 'A',
+          concentration: '',
         },
         initialValue: 0,
         conditions: [],
@@ -32,7 +32,7 @@ const DirectTextParser: React.FC<DirectTextParserProps> = ({
       };
 
       // Split text into lines and remove empty ones
-      const lines = inputText.split("\n").filter((line) => line.trim() !== "");
+      const lines = inputText.split('\n').filter((line) => line.trim() !== '');
 
       // Extract date from first line if present
       if (lines.length > 0) {
@@ -47,27 +47,27 @@ const DirectTextParser: React.FC<DirectTextParserProps> = ({
         const line = lines[i].trim();
 
         // Look for concentration
-        if (line.includes("g/L") || line.includes("mL")) {
+        if (line.includes('g/L') || line.includes('mL')) {
           data.experimentParams.concentration = line;
         }
 
         // Look for Sample ID
-        if (line.includes("Sample ID") && lines[i + 1]?.includes("A")) {
-          data.experimentParams.sampleId = "A";
+        if (line.includes('Sample ID') && lines[i + 1]?.includes('A')) {
+          data.experimentParams.sampleId = 'A';
         }
 
         // Look for Ban đầu (initial value)
-        if (line.includes("Ban đầu") && lines[i + 1]) {
+        if (line.includes('Ban đầu') && lines[i + 1]) {
           const initialValueMatch = lines[i + 1].match(/(\d+[.,]\d+)/);
           if (initialValueMatch) {
             data.initialValue = parseFloat(
-              initialValueMatch[1].replace(",", ".")
+              initialValueMatch[1].replace(',', '.')
             );
           }
         }
 
         // Look for condition names (ZnO rows)
-        if (line.startsWith("ZnO")) {
+        if (line.startsWith('ZnO')) {
           data.conditions.push({ name: line, total: 0 });
         }
       }
@@ -75,8 +75,8 @@ const DirectTextParser: React.FC<DirectTextParserProps> = ({
       // If no conditions found, use default ones
       if (data.conditions.length === 0) {
         data.conditions = [
-          { name: "ZnO - với 200", total: 0 },
-          { name: "ZnO - với 300", total: 0 },
+          { name: 'ZnO - với 200', total: 0 },
+          { name: 'ZnO - với 300', total: 0 },
         ];
       }
 
@@ -107,7 +107,7 @@ const DirectTextParser: React.FC<DirectTextParserProps> = ({
           // Get the time (should be the next line after measurements)
           if (i + 3 < lines.length && /^\d+$/.test(lines[i + 3].trim())) {
             rowData.push(lines[i + 3].trim());
-            timePointLines.push(rowData.join("|"));
+            timePointLines.push(rowData.join('|'));
             i += 3; // Skip the lines we've processed
           }
         }
@@ -115,10 +115,10 @@ const DirectTextParser: React.FC<DirectTextParserProps> = ({
 
       // Process the time point lines
       timePointLines.forEach((tpLine) => {
-        const parts = tpLine.split("|");
+        const parts = tpLine.split('|');
         if (parts.length >= 4) {
-          const measurement1 = parseFloat(parts[1].replace(",", "."));
-          const measurement2 = parseFloat(parts[2].replace(",", "."));
+          const measurement1 = parseFloat(parts[1].replace(',', '.'));
+          const measurement2 = parseFloat(parts[2].replace(',', '.'));
           const time = parseInt(parts[3]);
 
           if (!isNaN(time) && !isNaN(measurement1) && !isNaN(measurement2)) {
@@ -141,7 +141,7 @@ const DirectTextParser: React.FC<DirectTextParserProps> = ({
           const line = lines[i].trim();
 
           // Try to parse as a number (could be index or time)
-          const numericValue = parseFloat(line.replace(",", "."));
+          const numericValue = parseFloat(line.replace(',', '.'));
 
           if (!isNaN(numericValue)) {
             if (currentIndex === -1) {
@@ -183,8 +183,8 @@ const DirectTextParser: React.FC<DirectTextParserProps> = ({
         // Skip the initial value if found
         const startIdx = allNumbers.some(
           (n) =>
-            n.includes(",") &&
-            parseFloat(n.replace(",", ".")) === data.initialValue
+            n.includes(',') &&
+            parseFloat(n.replace(',', '.')) === data.initialValue
         )
           ? 1
           : 0;
@@ -192,8 +192,8 @@ const DirectTextParser: React.FC<DirectTextParserProps> = ({
         for (let i = startIdx; i < allNumbers.length; i += 2 + 1) {
           if (i + 2 < allNumbers.length) {
             const measurements: number[] = [
-              parseFloat(allNumbers[i].replace(",", ".")),
-              parseFloat(allNumbers[i + 1].replace(",", ".")),
+              parseFloat(allNumbers[i].replace(',', '.')),
+              parseFloat(allNumbers[i + 1].replace(',', '.')),
             ];
             const time = parseInt(allNumbers[i + 2]);
 
@@ -213,7 +213,7 @@ const DirectTextParser: React.FC<DirectTextParserProps> = ({
       }
 
       // Last attempt: parse directly from your example format
-      if (data.timePoints.length === 0 && inputText.includes("ZnO")) {
+      if (data.timePoints.length === 0 && inputText.includes('ZnO')) {
         // Parse from the example format you provided
         const measurements1: number[] = [];
         const measurements2: number[] = [];
@@ -229,17 +229,17 @@ const DirectTextParser: React.FC<DirectTextParserProps> = ({
 
         // First number is likely the initial value
         if (decimalMatches.length > 0) {
-          data.initialValue = parseFloat(decimalMatches[0].replace(",", "."));
+          data.initialValue = parseFloat(decimalMatches[0].replace(',', '.'));
         }
 
         // The rest are measurements and times
         for (let i = 1; i < decimalMatches.length; i += 2) {
           if (i < decimalMatches.length) {
-            measurements1.push(parseFloat(decimalMatches[i].replace(",", ".")));
+            measurements1.push(parseFloat(decimalMatches[i].replace(',', '.')));
           }
           if (i + 1 < decimalMatches.length) {
             measurements2.push(
-              parseFloat(decimalMatches[i + 1].replace(",", "."))
+              parseFloat(decimalMatches[i + 1].replace(',', '.'))
             );
           }
         }
@@ -281,9 +281,9 @@ const DirectTextParser: React.FC<DirectTextParserProps> = ({
       // Call the callback with the extracted data
       onDataExtracted(data);
     } catch (error) {
-      console.error("Parsing error:", error);
+      console.error('Parsing error:', error);
       setErrorMessage(
-        "Error parsing text. Please check the format and try again."
+        'Error parsing text. Please check the format and try again.'
       );
     }
   };
@@ -304,7 +304,8 @@ const DirectTextParser: React.FC<DirectTextParserProps> = ({
 
       <button
         onClick={parseText}
-        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
         Process Text
       </button>
 
@@ -316,15 +317,15 @@ const DirectTextParser: React.FC<DirectTextParserProps> = ({
         Paste the text from your data table. The parser works best with the
         format you provided:
         <pre className="mt-2 p-2 bg-gray-100 rounded text-xs overflow-x-auto">
-          31/03/25 Sample ID Ban đầu{"\n"}
-          0.032g/L Cif + 0.025g /250 mL xt{"\n"}A{"\n"}
-          time/min{"\n"}
-          2,802{"\n"}
-          ZnO - või 200{"\n"}
-          ZnO - või 300{"\n"}0{"\n"}
-          0,574{"\n"}
-          0,649{"\n"}
-          30{"\n"}
+          31/03/25 Sample ID Ban đầu{'\n'}
+          0.032g/L Cif + 0.025g /250 mL xt{'\n'}A{'\n'}
+          time/min{'\n'}
+          2,802{'\n'}
+          ZnO - või 200{'\n'}
+          ZnO - või 300{'\n'}0{'\n'}
+          0,574{'\n'}
+          0,649{'\n'}
+          30{'\n'}
           ...
         </pre>
       </p>

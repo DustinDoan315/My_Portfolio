@@ -1,9 +1,13 @@
+import Header from '@/components/Header';
+import localFont from 'next/font/local';
+import { FaFacebook, FaGithub, FaLinkedin } from 'react-icons/fa';
+import { personalInfo } from '@/data/personal';
+import { siteMetadata } from '@/data/metadata';
+import './globals.css';
+
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa";
-import "./globals.css";
-import Header from "@/components/Header";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -16,32 +20,17 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export const metadata: Metadata = {
-  title: "Experiment Data Generator",
-  description: "Generate Excel files from experimental data",
-};
+export const metadata: Metadata = siteMetadata;
 
-// Social links data
-const socialLinks = [
-  {
-    href: "https://www.facebook.com/profile.php?id=100008547228745",
-    label: "Facebook",
-    icon: FaFacebook,
-    hoverColor: "text-blue-500",
-  },
-  {
-    href: "https://github.com/DustinDoan315",
-    label: "Github",
-    icon: FaGithub,
-    hoverColor: "text-gray-500",
-  },
-  {
-    href: "https://www.linkedin.com/in/dustin315/",
-    label: "Linkedin",
-    icon: FaLinkedin,
-    hoverColor: "text-blue-500",
-  },
-];
+// Get icon component by name
+const getIconComponent = (iconName: string) => {
+  const iconMap: { [key: string]: React.ComponentType } = {
+    FaFacebook,
+    FaGithub,
+    FaLinkedin,
+  };
+  return iconMap[iconName] || FaGithub;
+};
 
 // Reusable SocialLink Component
 const SocialLink = ({
@@ -86,12 +75,12 @@ export default function RootLayout({
                 Contact to me
               </p>
               <div className="flex justify-center space-x-6">
-                {socialLinks.map((social) => (
+                {personalInfo.socialLinks.map((social) => (
                   <SocialLink
-                    key={social.href}
-                    href={social.href}
-                    label={social.label}
-                    Icon={social.icon}
+                    key={social.url}
+                    href={social.url}
+                    label={social.platform}
+                    Icon={getIconComponent(social.icon)}
                     hoverColor={social.hoverColor}
                   />
                 ))}

@@ -1,0 +1,15 @@
+# Ignore artifacts:
+build
+coverage
+dist
+node_modules
+
+# Ignore all HTML files:
+*.html
+
+# Ignore Next.js build output
+.next/
+out/
+
+# Ignore specific patterns for "use client" directive
+# This prevents Prettier from reordering the "use client" directive

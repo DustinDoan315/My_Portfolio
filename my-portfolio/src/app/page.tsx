@@ -1,58 +1,112 @@
+import React from 'react';
+import Skills from '@/components/Skills';
+import StructuredData from '@/components/StructuredData';
+import { personalInfo } from '@/data/personal';
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import Skills from "@/components/Skills";
-import React from "react";
 
 const DashBoard = () => (
-  <div className="bg-gray-100">
-    <main className="flex-grow container mx-auto sm:px-24">
-      <div className="flex flex-col items-center rounded-2xl py-6 bg-gradient-to-br from-[#ABECD6] to-[#dadfbc]">
-        <img
-          src="/avatar.jpg"
-          alt="Dustin"
-          className="rounded-full w-32 h-32 mb-4 shadow-lg"
-        />
-        <h2 className="text-2xl font-semibold text-gray-600">Dustin Doan</h2>
-        <p className="w-2/3 text-gray-700 mt-2">
-          👋 I&#39;m a Mobile Engineer with over 4 years of experience
-          specializing in React Native. My journey in mobile development has
-          equipped me with a solid foundation and deep expertise in creating
-          seamless, high-performance applications.
-        </p>
-        <ul className="w-2/3 text-gray-700 mt-2 list-disc list-inside space-y-2">
-          <li>
-            🔗 <strong>Blockchain</strong>: I&#39;ve developed secure and
-            efficient applications that leverage decentralized technologies,
-            ensuring data integrity and user privacy.
-          </li>
-          <li>
-            🛒 <strong>E-commerce</strong>: My experience includes building
-            robust platforms that provide smooth user experiences and facilitate
-            secure transactions, enhancing the shopping journey for customers.
-          </li>
-          <li>
-            📅 <strong>Booking</strong>: I&#39;ve designed intuitive booking
-            systems that streamline reservation processes, making it easy for
-            users to find and book what they need.
-          </li>
-          <li>
-            🎉 <strong>Events</strong>: My work in event management apps has
-            involved creating engaging interfaces and features that cater to
-            user needs, improving the overall event experience.
-          </li>
-        </ul>
-        <p className="w-2/3 text-gray-700 mt-4">
-          My passion lies in crafting user-centric applications that not only
-          meet but exceed expectations. I thrive in collaborative environments
-          and am always eager to tackle new challenges and learn new
-          technologies.
-        </p>
+  <>
+    <StructuredData />
+    <div className="bg-gray-100 min-h-screen">
+      <main className="flex-grow container mx-auto sm:px-24 py-8">
+        {/* Hero Section */}
+        <div className="flex flex-col items-center rounded-2xl py-8 bg-gradient-to-br from-[#ABECD6] to-[#dadfbc] mb-8 shadow-xl">
+          <div className="relative">
+            <img
+              src={personalInfo.avatar}
+              alt={personalInfo.name}
+              className="rounded-full w-40 h-40 mb-6 shadow-2xl border-4 border-white"
+            />
+            <div className="absolute -bottom-2 -right-2 bg-green-500 w-6 h-6 rounded-full border-2 border-white"></div>
+          </div>
 
-        <Skills />
-      </div>
-    </main>
-  </div>
+          <h1 className="text-4xl font-bold text-gray-800 mb-2">
+            {personalInfo.name}
+          </h1>
+          <h2 className="text-xl font-semibold text-gray-600 mb-4">
+            {personalInfo.title}
+          </h2>
+
+          <div className="flex flex-wrap gap-3 mb-6">
+            {personalInfo.badges.map((badge) => (
+              <span
+                key={badge.text}
+                className={`${badge.color} px-3 py-1 rounded-full text-sm font-medium`}>
+                {badge.text}
+              </span>
+            ))}
+          </div>
+
+          <p className="w-full max-w-4xl text-gray-700 text-center text-lg leading-relaxed mb-6">
+            {personalInfo.bio.short}
+          </p>
+
+          <Skills />
+        </div>
+
+        {/* Expertise Areas */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          {personalInfo.expertiseAreas.map((area) => (
+            <div
+              key={area.title}
+              className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="flex items-center mb-4">
+                <div className={`${area.iconBg} p-3 rounded-lg mr-4`}>
+                  <span className="text-2xl">{area.icon}</span>
+                </div>
+                <h3 className="text-xl font-bold text-gray-800">
+                  {area.title}
+                </h3>
+              </div>
+              <p className="text-gray-600">{area.description}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Quick Stats */}
+        <div className="bg-white rounded-xl p-6 shadow-lg mb-8">
+          <h3 className="text-2xl font-bold text-gray-800 text-center mb-6">
+            Quick Stats
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            {personalInfo.stats.map((stat) => (
+              <div key={stat.label}>
+                <div className={`text-3xl font-bold ${stat.color}`}>
+                  {stat.value}
+                </div>
+                <div className="text-gray-600">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Call to Action */}
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-8 text-center text-white shadow-lg">
+          <h3 className="text-2xl font-bold mb-4">
+            Ready to Build Something Amazing?
+          </h3>
+          <p className="text-lg mb-6 opacity-90">
+            Let&#39;s collaborate and bring your ideas to life with cutting-edge
+            technology and exceptional user experiences.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href={`mailto:${personalInfo.email}`}
+              className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200">
+              Get In Touch
+            </a>
+            <a
+              href="/projects"
+              className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors duration-200">
+              View My Work
+            </a>
+          </div>
+        </div>
+      </main>
+    </div>
+  </>
 );
 
 export default DashBoard;
