@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // pages/index.tsx
-"use client";
+'use client';
 
-import React from "react";
-import Head from "next/head";
-import ApiIntegration from "@/components/ApiIntegration";
-import ClientOnly from "@/components/ClientOnly";
+import ApiIntegration from '@/components/ApiIntegration';
+import ClientOnly from '@/components/ClientOnly';
+import Head from 'next/head';
+import React from 'react';
 
 const GenerateWord: React.FC = () => {
-
   return (
     <div className="min-h-screen bg-gray-50">
       <Head>
@@ -28,10 +27,9 @@ const GenerateWord: React.FC = () => {
         <ClientOnly>
           <div className="grid grid-cols-1 gap-4 mb-8">
             <div className="bg-gray-50 p-4 rounded-lg">
-                <ApiIntegration />
+              <ApiIntegration />
             </div>
           </div>
-
         </ClientOnly>
       </main>
     </div>

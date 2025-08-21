@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { diffWords, Change } from "diff";
+import { Change, diffWords } from 'diff';
+import { useState } from 'react';
 
 const TextDiff = () => {
-  const [text1, setText1] = useState("");
-  const [text2, setText2] = useState("");
+  const [text1, setText1] = useState('');
+  const [text2, setText2] = useState('');
   const [diffResults, setDiffResults] = useState<Change[][]>([]);
 
   const handleCompare = () => {
-    const lines1 = text1.split("\n");
-    const lines2 = text2.split("\n");
+    const lines1 = text1.split('\n');
+    const lines2 = text2.split('\n');
     const maxLines = Math.max(lines1.length, lines2.length);
 
     const results: Change[][] = [];
     for (let i = 0; i < maxLines; i++) {
-      const diff = diffWords(lines1[i] || "", lines2[i] || "");
+      const diff = diffWords(lines1[i] || '', lines2[i] || '');
       results.push(diff);
     }
     setDiffResults(results);
@@ -44,7 +44,8 @@ const TextDiff = () => {
 
       <button
         onClick={handleCompare}
-        className="mt-6 px-6 py-3 w-full bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition duration-200">
+        className="mt-6 px-6 py-3 w-full bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition duration-200"
+      >
         Compare
       </button>
 
@@ -66,11 +67,12 @@ const TextDiff = () => {
                     key={index}
                     className={
                       part.added
-                        ? "bg-green-200 text-green-800 font-medium"
+                        ? 'bg-green-200 text-green-800 font-medium'
                         : part.removed
-                        ? "bg-red-200 text-red-800 font-medium"
-                        : "text-gray-800"
-                    }>
+                          ? 'bg-red-200 text-red-800 font-medium'
+                          : 'text-gray-800'
+                    }
+                  >
                     {part.value}
                   </span>
                 ))}

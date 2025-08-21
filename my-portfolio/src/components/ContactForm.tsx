@@ -1,6 +1,6 @@
 'use client';
-import React, { useState } from 'react';
 import { personalInfo } from '@/data/personal';
+import React, { useState } from 'react';
 
 import {
   FaCheckCircle,

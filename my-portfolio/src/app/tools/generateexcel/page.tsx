@@ -1,31 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // pages/index.tsx
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import Head from "next/head";
-import { saveAs } from "file-saver";
-import * as XLSX from "xlsx";
-import ApiIntegration from "@/components/ApiIntegration";
-import ClientOnly from "@/components/ClientOnly";
-import {
-  ExperimentParams,
-  Condition,
-  TimePoint,
-} from "../../../../types";
+import ApiIntegration from '@/components/ApiIntegration';
+import ClientOnly from '@/components/ClientOnly';
+import { saveAs } from 'file-saver';
+import Head from 'next/head';
+import React, { useEffect, useState } from 'react';
+import * as XLSX from 'xlsx';
+import { Condition, ExperimentParams, TimePoint } from '../../../../types';
 
 const Home: React.FC = () => {
   // State for experiment parameters
   const [experimentParams, setExperimentParams] = useState<ExperimentParams>({
-    date: "",
-    sampleId: "A",
-    concentration: "0.032g/L Cif + 0.025g/250 mL xi", // Default value from image
+    date: '',
+    sampleId: 'A',
+    concentration: '0.032g/L Cif + 0.025g/250 mL xi', // Default value from image
   });
 
   // State for experiment conditions - ZnO with different concentrations
   const [conditions, setConditions] = useState<Condition[]>([
-    { name: "ZnO - với 200", total: 0 },
-    { name: "ZnO - với 300", total: 0 },
+    { name: 'ZnO - với 200', total: 0 },
+    { name: 'ZnO - với 300', total: 0 },
   ]);
 
   // State for time series data
@@ -122,28 +118,28 @@ const Home: React.FC = () => {
     // Add header row with date and concentration
     XLSX.utils.sheet_add_aoa(
       ws,
-      [[experimentParams.date, experimentParams.concentration, "", "", ""]],
-      { origin: "A1" }
+      [[experimentParams.date, experimentParams.concentration, '', '', '']],
+      { origin: 'A1' }
     );
 
     // Add sample ID row
     XLSX.utils.sheet_add_aoa(
       ws,
-      [["Sample ID", experimentParams.sampleId, "", "time/min"]],
-      { origin: "A2" }
+      [['Sample ID', experimentParams.sampleId, '', 'time/min']],
+      { origin: 'A2' }
     );
 
     // Add "Ban dau" (initial) row
-    XLSX.utils.sheet_add_aoa(ws, [["Ban dau", initialValue.toString()]], {
-      origin: "A3",
+    XLSX.utils.sheet_add_aoa(ws, [['Ban dau', initialValue.toString()]], {
+      origin: 'A3',
     });
 
     // Add condition headers
-    const conditionRow = [""];
+    const conditionRow = [''];
     conditions.forEach((condition) => {
       conditionRow.push(condition.name);
     });
-    XLSX.utils.sheet_add_aoa(ws, [conditionRow], { origin: "A4" });
+    XLSX.utils.sheet_add_aoa(ws, [conditionRow], { origin: 'A4' });
 
     // Add time series data
     timePoints.forEach((point, index) => {
@@ -156,7 +152,7 @@ const Home: React.FC = () => {
     });
 
     // Add totals row at the bottom
-    const totalsRow = [""];
+    const totalsRow = [''];
     conditions.forEach((condition: any) => {
       totalsRow.push(condition.total);
     });
@@ -166,18 +162,18 @@ const Home: React.FC = () => {
 
     // Create workbook and add the worksheet
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Experiment Data");
+    XLSX.utils.book_append_sheet(wb, ws, 'Experiment Data');
 
     // Generate Excel file
-    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
     const dataBlob = new Blob([excelBuffer], {
-      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     });
 
     // Save file
     saveAs(
       dataBlob,
-      `experiment-data-${new Date().toISOString().split("T")[0]}.xlsx`
+      `experiment-data-${new Date().toISOString().split('T')[0]}.xlsx`
     );
   };
 
@@ -347,7 +343,8 @@ const Home: React.FC = () => {
                     {conditions.map((condition, index) => (
                       <th
                         key={index}
-                        className="px-4 py-2 text-left text-sm font-medium text-black">
+                        className="px-4 py-2 text-left text-sm font-medium text-black"
+                      >
                         {condition.name}
                       </th>
                     ))}
@@ -393,7 +390,8 @@ const Home: React.FC = () => {
                       <td className="px-4 py-2">
                         <button
                           onClick={() => removeTimePoint(timeIndex)}
-                          className="text-red-600 hover:text-red-800">
+                          className="text-red-600 hover:text-red-800"
+                        >
                           Xoá
                         </button>
                       </td>
@@ -414,7 +412,8 @@ const Home: React.FC = () => {
 
             <button
               onClick={addTimePoint}
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-4">
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-4"
+            >
               Add Time Point
             </button>
           </div>
@@ -422,7 +421,8 @@ const Home: React.FC = () => {
           <div className="flex justify-center">
             <button
               onClick={generateExcel}
-              className="px-6 py-3 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+              className="px-6 py-3 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+            >
               Step 5: Generate Excel File
             </button>
           </div>

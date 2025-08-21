@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
 const Header = () => {
@@ -48,38 +48,38 @@ const Header = () => {
           <div
             className={`${
               menuOpen ? 'block' : 'hidden'
-            } lg:flex flex-col lg:flex-row lg:items-center space-y-2 lg:space-y-0 lg:space-x-6 lg:mt-0`}
+            } lg:flex flex-col lg:flex-row lg:items-center space-y-2 lg:space-y-0 lg:space-x-8 lg:mt-0`}
           >
             <Link
               onClick={() => handleLinkClick('about')}
               href="/about"
-              className={`transition-colors duration-200 text-base lg:text-xl font-semibold ${
+              className={`transition-all duration-300 text-base lg:text-lg font-semibold ${
                 activeLink === 'about'
-                  ? 'bg-cyan-400 text-white'
-                  : 'text-gray-700'
-              } rounded px-3 py-1`}
+                  ? 'bg-gradient-to-r from-cyan-400 to-blue-500 text-white shadow-lg'
+                  : 'text-gray-700 hover:text-cyan-600'
+              } rounded-xl px-4 py-2 hover:scale-105`}
             >
               About
             </Link>
             <Link
               onClick={() => handleLinkClick('projects')}
               href="/projects"
-              className={`transition-colors duration-200 text-base lg:text-xl font-semibold ${
+              className={`transition-all duration-300 text-base lg:text-lg font-semibold ${
                 activeLink === 'projects'
-                  ? 'bg-cyan-400 text-white'
-                  : 'text-gray-700'
-              } rounded px-3 py-1`}
+                  ? 'bg-gradient-to-r from-cyan-400 to-blue-500 text-white shadow-lg'
+                  : 'text-gray-700 hover:text-cyan-600'
+              } rounded-xl px-4 py-2 hover:scale-105`}
             >
               Projects
             </Link>
             <Link
               onClick={() => handleLinkClick('blogs')}
               href="/blogs"
-              className={`transition-colors duration-200 text-base lg:text-xl font-semibold ${
+              className={`transition-all duration-300 text-base lg:text-lg font-semibold ${
                 activeLink === 'blogs'
-                  ? 'bg-cyan-400 text-white'
-                  : 'text-gray-700'
-              } rounded px-3 py-1`}
+                  ? 'bg-gradient-to-r from-cyan-400 to-blue-500 text-white shadow-lg'
+                  : 'text-gray-700 hover:text-cyan-600'
+              } rounded-xl px-4 py-2 hover:scale-105`}
             >
               Blogs
             </Link>
@@ -87,22 +87,22 @@ const Header = () => {
             <Link
               onClick={() => handleLinkClick('tools')}
               href="/tools"
-              className={`transition-colors duration-200 text-base lg:text-xl font-semibold ${
+              className={`transition-all duration-300 text-base lg:text-lg font-semibold ${
                 activeLink === 'tools'
-                  ? 'bg-cyan-400 text-white'
-                  : 'text-gray-700'
-              } rounded px-3 py-1`}
+                  ? 'bg-gradient-to-r from-cyan-400 to-blue-500 text-white shadow-lg'
+                  : 'text-gray-700 hover:text-cyan-600'
+              } rounded-xl px-4 py-2 hover:scale-105`}
             >
               Tools
             </Link>
             <Link
               onClick={() => handleLinkClick('contact')}
               href="/contact"
-              className={`transition-colors duration-200 text-base lg:text-xl font-semibold ${
+              className={`transition-all duration-300 text-base lg:text-lg font-semibold ${
                 activeLink === 'contact'
-                  ? 'bg-cyan-400 text-white'
-                  : 'text-gray-700'
-              } rounded px-3 py-1`}
+                  ? 'bg-gradient-to-r from-cyan-400 to-blue-500 text-white shadow-lg'
+                  : 'text-gray-700 hover:text-cyan-600'
+              } rounded-xl px-4 py-2 hover:scale-105`}
             >
               Contact
             </Link>

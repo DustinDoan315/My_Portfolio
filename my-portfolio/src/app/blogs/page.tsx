@@ -1,17 +1,18 @@
-import { blogPosts } from "@/utils/mock";
-import { FaCalendarAlt, FaClock, FaTag } from "react-icons/fa";
+import { blogPosts } from '@/utils/mock';
+import Link from 'next/link';
+import { FaCalendarAlt, FaClock, FaTag } from 'react-icons/fa';
 
 /* eslint-disable @next/next/no-img-element */
 const BlogsPage = () => {
   const categories = [...new Set(blogPosts.map((post) => post.category))];
 
   return (
-    <div className="bg-gray-100 min-h-screen py-8">
-      <div className="container mx-auto px-4 sm:px-8 max-w-6xl">
+    <div className="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen py-12">
+      <div className="container mx-auto px-4 sm:px-8 max-w-7xl">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">Tech Blog</h1>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+        <div className="text-center mb-16">
+          <h1 className="text-4xl font-bold text-gray-800 mb-6">Tech Blog</h1>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Insights, tutorials, and thoughts on modern web development, mobile
             apps, and emerging technologies. Sharing knowledge from real-world
             projects and experiences.
@@ -30,7 +31,8 @@ const BlogsPage = () => {
             {categories.map((category) => (
               <span
                 key={category}
-                className="bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-50 cursor-pointer transition-colors">
+                className="bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-50 cursor-pointer transition-colors"
+              >
                 {category}
               </span>
             ))}
@@ -38,11 +40,12 @@ const BlogsPage = () => {
         </div>
 
         {/* Blog Posts Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-16">
           {blogPosts.map((post) => (
             <article
               key={post.id}
-              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group">
+              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
+            >
               {/* Featured Image */}
               <div className="relative overflow-hidden h-48">
                 <img
@@ -93,7 +96,8 @@ const BlogsPage = () => {
                     {post.tags.slice(0, 4).map((tag) => (
                       <span
                         key={tag}
-                        className="bg-gray-100 text-gray-700 px-2 py-1 text-xs rounded-full hover:bg-gray-200 transition-colors cursor-pointer">
+                        className="bg-gray-100 text-gray-700 px-2 py-1 text-xs rounded-full hover:bg-gray-200 transition-colors cursor-pointer"
+                      >
                         {tag}
                       </span>
                     ))}
@@ -106,27 +110,30 @@ const BlogsPage = () => {
                 </div>
 
                 {/* Read More Button */}
-                <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                <Link
+                  href={`/blogs/${post.id}`}
+                  className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center"
+                >
                   Read Full Article
-                </button>
+                </Link>
               </div>
             </article>
           ))}
         </div>
 
         {/* Newsletter Signup */}
-        <div className="mt-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-8 text-center text-white">
-          <h3 className="text-2xl font-bold mb-4">Stay Updated</h3>
-          <p className="text-lg mb-6 opacity-90">
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-12 text-center text-white shadow-2xl">
+          <h3 className="text-3xl font-bold mb-6">Stay Updated</h3>
+          <p className="text-xl mb-8 opacity-90 max-w-3xl mx-auto">
             Subscribe to get notified about new articles and tech insights.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center max-w-md mx-auto">
             <input
               type="email"
               placeholder="Enter your email"
-              className="flex-grow px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-white"
+              className="flex-grow px-4 py-3 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-white"
             />
-            <button className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+            <button className="bg-white text-blue-600 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors">
               Subscribe
             </button>
           </div>

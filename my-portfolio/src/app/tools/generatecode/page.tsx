@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 
 const GenerateBackendStructure: React.FC = () => {
-  const [projectName, setProjectName] = useState("");
-  const [folderPath, setFolderPath] = useState("");
+  const [projectName, setProjectName] = useState('');
+  const [folderPath, setFolderPath] = useState('');
   const [progress, setProgress] = useState(0);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
   const handleGenerateProject = async () => {
     setProgress(10);
-    setMessage("Generating project...");
+    setMessage('Generating project...');
 
     try {
-      const response = await fetch("/api/generatecode", {
-        method: "POST",
+      const response = await fetch('/api/generatecode', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ projectName, folderPath }),
       });
@@ -31,9 +31,9 @@ const GenerateBackendStructure: React.FC = () => {
         setProgress(0);
       }
     } catch (error) {
-      setMessage("Failed to create project.");
+      setMessage('Failed to create project.');
       setProgress(0);
-      console.error("Error:", error);
+      console.error('Error:', error);
     }
   };
 
@@ -63,7 +63,8 @@ const GenerateBackendStructure: React.FC = () => {
 
       <button
         onClick={handleGenerateProject}
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+      >
         Generate Project
       </button>
 
@@ -71,8 +72,9 @@ const GenerateBackendStructure: React.FC = () => {
         <div
           style={{ width: `${progress}%` }}
           className={`h-full rounded-full ${
-            progress < 100 ? "bg-blue-500" : "bg-green-500"
-          }`}></div>
+            progress < 100 ? 'bg-blue-500' : 'bg-green-500'
+          }`}
+        ></div>
       </div>
 
       {message && <p className="text-black">{message}</p>}

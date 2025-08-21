@@ -22,7 +22,7 @@ export interface ExtractedData {
   timePoints: TimePoint[];
   metadata?: {
     source?: string;
-    extractionMethod?: "ocr" | "text" | "json" | "api";
+    extractionMethod?: 'ocr' | 'text' | 'json' | 'api';
     processedAt?: Date;
     rawData?: unknown;
     confidence?: number;

@@ -2,9 +2,9 @@
 'use client';
 
 // components/ApiIntegration.tsx
-import React, { useState } from 'react';
 import { Document, Packer, Paragraph } from 'docx';
 import { saveAs } from 'file-saver';
+import React, { useState } from 'react';
 
 interface ApiIntegrationProps {
   onTextExtracted?: (text: string) => void;

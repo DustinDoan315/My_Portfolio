@@ -1,6 +1,6 @@
 'use client';
-import React from 'react';
 import { certifications, getLevelColor, skillCategories } from '@/data/skills';
+import React from 'react';
 
 import {
   FaAws,

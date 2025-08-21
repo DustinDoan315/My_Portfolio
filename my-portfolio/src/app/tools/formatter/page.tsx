@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import mammoth from "mammoth";
-import { Document, Packer, Paragraph, TextRun } from "docx";
+import { Document, Packer, Paragraph, TextRun } from 'docx';
+import mammoth from 'mammoth';
+import React, { useState } from 'react';
 
 export default function Formatter() {
   const [file, setFile] = useState<File | null>(null);
@@ -14,31 +14,31 @@ export default function Formatter() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files ? e.target.files[0] : null;
     setFile(selectedFile);
-    console.log("Selected file:", selectedFile);
+    console.log('Selected file:', selectedFile);
   };
 
   const formatFileContent = (htmlContent: string): Paragraph[] => {
     const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlContent, "text/html");
+    const doc = parser.parseFromString(htmlContent, 'text/html');
 
     const paragraphs: Paragraph[] = [];
     const regex = /([A-Za-z\)])(\d*)/g;
 
     Array.from(doc.body.childNodes).forEach((node) => {
-      if (node.nodeName === "P") {
+      if (node.nodeName === 'P') {
         const paragraphRuns: TextRun[] = [];
 
         Array.from(node.childNodes).forEach((childNode) => {
-          if (childNode.nodeName === "STRONG") {
+          if (childNode.nodeName === 'STRONG') {
             paragraphRuns.push(
-              new TextRun({ text: childNode.textContent || "", bold: true })
+              new TextRun({ text: childNode.textContent || '', bold: true })
             );
-          } else if (childNode.nodeName === "EM") {
+          } else if (childNode.nodeName === 'EM') {
             paragraphRuns.push(
-              new TextRun({ text: childNode.textContent || "", italics: true })
+              new TextRun({ text: childNode.textContent || '', italics: true })
             );
           } else if (childNode.nodeType === Node.TEXT_NODE) {
-            const line = childNode.textContent || "";
+            const line = childNode.textContent || '';
             let match;
             let lastIndex = 0;
 
@@ -52,10 +52,10 @@ export default function Formatter() {
               }
 
               const parentElement = childNode.parentNode as HTMLElement;
-              const isBold = parentElement?.nodeName === "STRONG";
-              const isItalic = parentElement?.nodeName === "EM";
+              const isBold = parentElement?.nodeName === 'STRONG';
+              const isItalic = parentElement?.nodeName === 'EM';
 
-              const fontSize = parentElement?.style.fontSize || "13px";
+              const fontSize = parentElement?.style.fontSize || '13px';
               const sizeInHalfPoints = parseFloat(fontSize) * 2;
 
               const fontOptions: any = {
@@ -104,9 +104,9 @@ export default function Formatter() {
 
     const blob = await Packer.toBlob(doc);
     const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
+    const a = document.createElement('a');
     a.href = url;
-    a.download = "formatted_document.docx";
+    a.download = 'formatted_document.docx';
     a.click();
   };
 
@@ -119,24 +119,24 @@ export default function Formatter() {
 
     try {
       const arrayBuffer = await file.arrayBuffer();
-      console.log("Reading file...");
+      console.log('Reading file...');
 
       const { value, messages } = await mammoth.convertToHtml({ arrayBuffer });
-      console.log("Raw file content:", value);
+      console.log('Raw file content:', value);
 
       if (messages.length > 0) {
-        console.warn("Mammoth messages:", messages);
+        console.warn('Mammoth messages:', messages);
       }
 
       const formattedData = formatFileContent(value);
-      console.log("Formatted data:", formattedData);
+      console.log('Formatted data:', formattedData);
 
       generateDocxFile(formattedData);
-      console.log("File formatted and generated successfully.");
+      console.log('File formatted and generated successfully.');
     } catch (error) {
-      console.error("Error processing file:", error);
+      console.error('Error processing file:', error);
       setErrorMessage(
-        "There was an error processing the file. Please try again."
+        'There was an error processing the file. Please try again.'
       );
     } finally {
       setIsLoading(false);
@@ -160,9 +160,10 @@ export default function Formatter() {
             type="submit"
             disabled={isLoading}
             className={`w-full py-2 rounded-lg font-semibold text-white transition duration-300 ${
-              isLoading ? "bg-gray-400" : "bg-purple-600 hover:bg-purple-700"
-            }`}>
-            {isLoading ? "Processing..." : "Upload and Format"}
+              isLoading ? 'bg-gray-400' : 'bg-purple-600 hover:bg-purple-700'
+            }`}
+          >
+            {isLoading ? 'Processing...' : 'Upload and Format'}
           </button>
         </form>
 
@@ -171,7 +172,8 @@ export default function Formatter() {
             <progress
               value={50}
               max="100"
-              className="w-full h-2 rounded bg-purple-300"></progress>
+              className="w-full h-2 rounded bg-purple-300"
+            ></progress>
             <span className="block text-center text-gray-800">50%</span>
           </div>
         )}

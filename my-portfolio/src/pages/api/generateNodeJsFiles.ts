@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import fs from "fs-extra";
-import path from "path";
+import fs from 'fs-extra';
+import path from 'path';
 
 export const generateNodeJsFiles = (projectRoot: string) => {
   const serverJsContent = `
@@ -25,7 +25,7 @@ app.listen(PORT, () => {
     console.log(\`Server running on http://localhost:\${PORT}\`);
 });
   `;
-  fs.writeFileSync(path.join(projectRoot, "server.js"), serverJsContent.trim());
+  fs.writeFileSync(path.join(projectRoot, 'server.js'), serverJsContent.trim());
 
   const dbJsContent = `
 const { Sequelize } = require('sequelize');
@@ -48,7 +48,7 @@ const connectDB = async () => {
 module.exports = { sequelize, connectDB };
   `;
   fs.writeFileSync(
-    path.join(projectRoot, "config", "db.js"),
+    path.join(projectRoot, 'config', 'db.js'),
     dbJsContent.trim()
   );
 
@@ -70,7 +70,7 @@ module.exports = {
 };
   `;
   fs.writeFileSync(
-    path.join(projectRoot, "controllers", "cryptoController.js"),
+    path.join(projectRoot, 'controllers', 'cryptoController.js'),
     cryptoControllerContent.trim()
   );
 
@@ -84,7 +84,7 @@ router.get('/crypto/:range', cryptoController.getCryptoData);
 module.exports = router;
   `;
   fs.writeFileSync(
-    path.join(projectRoot, "routes", "cryptoRoutes.js"),
+    path.join(projectRoot, 'routes', 'cryptoRoutes.js'),
     cryptoRoutesContent.trim()
   );
 
@@ -125,7 +125,7 @@ module.exports = {
 };
   `;
   fs.writeFileSync(
-    path.join(projectRoot, "services", "cryptoService.js"),
+    path.join(projectRoot, 'services', 'cryptoService.js'),
     cryptoServiceContent.trim()
   );
 
@@ -138,7 +138,7 @@ const errorHandler = (err, req, res, next) => {
 module.exports = errorHandler;
   `;
   fs.writeFileSync(
-    path.join(projectRoot, "utils", "errorHandler.js"),
+    path.join(projectRoot, 'utils', 'errorHandler.js'),
     errorHandlerContent.trim()
   );
 };

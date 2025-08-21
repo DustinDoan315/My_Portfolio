@@ -1,4 +1,3 @@
-import React from 'react';
 import { structuredDataConfig } from '@/data/metadata';
 
 const StructuredData = () => {

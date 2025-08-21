@@ -1,4 +1,4 @@
-import ExperienceTimeline from "@/components/ExperienceTimeline";
+import ExperienceTimeline from '@/components/ExperienceTimeline';
 
 const AboutPage = () => {
   return (
