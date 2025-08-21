@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import { projectItems } from '@/utils/mock';
 import Link from 'next/link';
@@ -15,13 +16,7 @@ import {
   FaUsers,
 } from 'react-icons/fa';
 
-interface ProjectDetailPageProps {
-  params: {
-    id: string;
-  };
-}
-
-const ProjectDetailPage = ({ params }: ProjectDetailPageProps) => {
+const ProjectDetailPage = ({ params }: any) => {
   const project = projectItems.find((item) => item.id === parseInt(params.id));
 
   if (!project) {

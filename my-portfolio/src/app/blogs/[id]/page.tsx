@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { blogPosts } from '@/utils/mock';
@@ -14,13 +15,7 @@ import {
   FaTag,
 } from 'react-icons/fa';
 
-interface BlogDetailPageProps {
-  params: {
-    id: string;
-  };
-}
-
-const BlogDetailPage = ({ params }: BlogDetailPageProps) => {
+const BlogDetailPage = ({ params }: any) => {
   const blog = blogPosts.find((post) => post.id === parseInt(params.id));
 
   if (!blog) {
