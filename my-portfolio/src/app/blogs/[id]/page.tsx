@@ -153,10 +153,10 @@ const BlogDetailPage = ({ params }: BlogDetailPageProps) => {
             <p className="text-gray-700 leading-relaxed">
               This comprehensive guide covers the essential aspects of{' '}
               {blog.tags[0]} development. By following these best practices and
-              implementing the techniques discussed, you'll be well-equipped to
-              build robust and scalable applications. Remember that technology
-              evolves rapidly, so staying updated with the latest trends and
-              practices is crucial for continued success.
+              implementing the techniques discussed, you will be well-equipped
+              to build robust and scalable applications. Remember that
+              technology evolves rapidly, so staying updated with the latest
+              trends and practices is crucial for continued success.
             </p>
           </div>
         </div>
@@ -225,8 +225,8 @@ const BlogDetailPage = ({ params }: BlogDetailPageProps) => {
             Enjoyed This Article?
           </h3>
           <p className="text-lg text-gray-600 mb-6">
-            Check out more of my work and let's discuss how we can collaborate
-            on your next project.
+            Check out more of my work and lets discuss how we can collaborate on
+            your next project.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

@@ -257,7 +257,7 @@ const ProjectDetailPage = ({ params }: ProjectDetailPageProps) => {
             Interested in This Project?
           </h3>
           <p className="text-lg mb-6 opacity-90">
-            Let's discuss how we can work together on similar projects or
+            Lets discuss how we can work together on similar projects or
             customize this solution for your needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -265,7 +265,7 @@ const ProjectDetailPage = ({ params }: ProjectDetailPageProps) => {
               href="mailto:dustindoan315@gmail.com"
               className="bg-white text-blue-600 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors duration-200"
             >
-              Let's Discuss
+              Lets Discuss
             </a>
             <Link
               href="/projects"

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import Skills from '@/components/Skills';
 import StructuredData from '@/components/StructuredData';
 import { personalInfo } from '@/data/personal';
