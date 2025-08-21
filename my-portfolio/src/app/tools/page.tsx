@@ -11,7 +11,7 @@ const ToolList = () => {
             Development Tools
           </h1>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            A collection of useful tools I've built to streamline development
+            A collection of useful tools I have built to streamline development
             workflows, from code formatting to document generation. Each tool is
             designed with developers in mind for maximum efficiency.
           </p>
@@ -35,7 +35,7 @@ const ToolList = () => {
             href="mailto:dustindoan315@gmail.com"
             className="bg-white text-blue-600 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors duration-200"
           >
-            Let's Discuss
+            Let Discuss
           </a>
         </div>
       </div>

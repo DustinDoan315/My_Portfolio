@@ -115,7 +115,7 @@ export const projectItems: Project[] = [
   {
     id: 4,
     image: '/AppImages/1-1.png',
-    title: 'CryptoVault - Trading Platform',
+    title: 'Crypto - Trading Platform',
     description:
       'A comprehensive cryptocurrency trading platform with real-time market data, portfolio management, advanced charting tools, and automated trading bots. Supports multiple exchanges and wallets.',
     category: 'Blockchain',
@@ -135,7 +135,7 @@ export const projectItems: Project[] = [
       'Advanced charting',
       'DeFi integration',
     ],
-    githubUrl: 'https://github.com/DustinDoan315/CryptoVault',
+    githubUrl: 'https://github.com/DustinDoan315/tradingsimulation',
     demoUrl: 'https://cryptovault-demo.netlify.app',
     status: 'Completed',
     duration: '10 months',
