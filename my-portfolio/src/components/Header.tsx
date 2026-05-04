@@ -18,7 +18,7 @@ const Header = () => {
   const pathname = usePathname();
 
   const isActive = (href: string) =>
-    href === '/' ? pathname === '/' : pathname.startsWith(href);
+    href === '/' ? pathname === '/' : pathname?.startsWith(href) ?? false;
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">

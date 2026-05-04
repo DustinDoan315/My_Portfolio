@@ -57,7 +57,7 @@ const ExperienceTimeline = () => {
         {/* Timeline Line */}
         <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-400 via-emerald-400 to-purple-400"></div>
 
-        {experienceData.map((item, index) => (
+        {experienceData.map((item) => (
           <div
             key={item.id}
             className="relative flex items-start mb-8 last:mb-0"
