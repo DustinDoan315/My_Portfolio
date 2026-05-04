@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { generateNodeJsFiles } from '@/pages/api/generateNodeJsFiles';
+import { generateNodeJsFiles } from '@/lib/generateNodeJsFiles';
 import fs from 'fs-extra';
 import path from 'path';
 
