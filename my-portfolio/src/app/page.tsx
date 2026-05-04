@@ -11,14 +11,14 @@ const DashBoard = () => (
     <div className="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
       <main className="flex-grow container mx-auto px-4 sm:px-8 py-12 max-w-7xl">
         {/* Hero Section */}
-        <div className="flex flex-col items-center rounded-3xl py-16 px-8 bg-gradient-to-br from-[#ABECD6] to-[#dadfbc] mb-12 shadow-2xl">
+        <div className="flex flex-col items-center rounded-3xl py-16 px-8 bg-gradient-to-br from-indigo-50 via-cyan-50 to-blue-100 mb-12 shadow-2xl">
           <div className="relative">
             <img
               src={personalInfo.avatar}
               alt={personalInfo.name}
               className="rounded-full w-40 h-40 mb-6 shadow-2xl border-4 border-white"
             />
-            <div className="absolute -bottom-2 -right-2 bg-green-500 w-6 h-6 rounded-full border-2 border-white"></div>
+            <div className="absolute -bottom-2 -right-2 bg-emerald-400 w-6 h-6 rounded-full border-2 border-white"></div>
           </div>
 
           <h1 className="text-4xl font-bold text-gray-800 mb-2">
@@ -95,13 +95,13 @@ const DashBoard = () => (
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <a
               href={`mailto:${personalInfo.email}`}
-              className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200"
+              className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
             >
               Get In Touch
             </a>
             <a
               href="/projects"
-              className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors duration-200"
+              className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
             >
               View My Work
             </a>

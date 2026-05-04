@@ -21,33 +21,34 @@ const geistMono = localFont({
 
 export const metadata: Metadata = siteMetadata;
 
-// Get icon component by name
-const getIconComponent = (iconName: string) => {
-  const iconMap: { [key: string]: React.ComponentType } = {
-    FaFacebook,
-    FaGithub,
-    FaLinkedin,
-  };
-  return iconMap[iconName] || FaGithub;
+const iconMap: { [key: string]: React.ComponentType<{ size?: number }> } = {
+  FaFacebook,
+  FaGithub,
+  FaLinkedin,
 };
 
-// Reusable SocialLink Component
+const hoverClasses: Record<string, string> = {
+  FaFacebook: 'hover:text-blue-500',
+  FaGithub: 'hover:text-gray-400',
+  FaLinkedin: 'hover:text-blue-400',
+};
+
 const SocialLink = ({
   href,
   label,
   Icon,
-  hoverColor,
+  iconName,
 }: {
   href: string;
   label: string;
   Icon: any;
-  hoverColor: string;
+  iconName: string;
 }) => (
   <a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className={`text-gray-300 hover:${hoverColor}`}
+    className={`text-gray-400 transition-colors duration-200 ${hoverClasses[iconName] ?? 'hover:text-white'}`}
     aria-label={label}
   >
     <Icon size={24} />
@@ -68,21 +69,30 @@ export default function RootLayout({
           {/* Header */}
           <Header />
           <main className="flex-grow">{children}</main>
-          <footer className="bg-gray-800 text-gray-300 py-8">
-            <div className="container mx-auto text-center">
-              <p className="text-lg mb-4 font-semibold font-serif">
-                Contact to me
+          <footer className="bg-gray-900 text-gray-300 py-10">
+            <div className="container mx-auto px-4 text-center">
+              <p className="text-2xl font-bold text-white mb-1">
+                {personalInfo.name}
               </p>
-              <div className="flex justify-center space-x-6">
-                {personalInfo.socialLinks.map((social) => (
-                  <SocialLink
-                    key={social.url}
-                    href={social.url}
-                    label={social.platform}
-                    Icon={getIconComponent(social.icon)}
-                    hoverColor={social.hoverColor}
-                  />
-                ))}
+              <p className="text-sm text-gray-400 mb-6">
+                Senior Mobile Engineer · React Native Specialist · Full-Stack Developer
+              </p>
+              <div className="flex justify-center space-x-6 mb-6">
+                {personalInfo.socialLinks.map((social) => {
+                  const Icon = iconMap[social.icon] ?? FaGithub;
+                  return (
+                    <SocialLink
+                      key={social.url}
+                      href={social.url}
+                      label={social.platform}
+                      Icon={Icon}
+                      iconName={social.icon}
+                    />
+                  );
+                })}
+              </div>
+              <div className="border-t border-gray-700 pt-6 text-xs text-gray-500">
+                © {new Date().getFullYear()} {personalInfo.name}. Built with Next.js &amp; Tailwind CSS.
               </div>
             </div>
           </footer>

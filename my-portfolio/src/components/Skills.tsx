@@ -25,6 +25,17 @@ import {
   SiWeb3Dotjs,
 } from 'react-icons/si';
 
+const getLevelPercent = (level: string): number =>
+  ({ Expert: 95, Advanced: 75, Intermediate: 55, Beginner: 30 }[level] ?? 50);
+
+const getBarColor = (level: string): string =>
+  ({
+    Expert: 'bg-gradient-to-r from-emerald-400 to-emerald-600',
+    Advanced: 'bg-gradient-to-r from-blue-400 to-blue-600',
+    Intermediate: 'bg-gradient-to-r from-amber-300 to-amber-500',
+    Beginner: 'bg-gradient-to-r from-gray-300 to-gray-400',
+  }[level] ?? 'bg-gray-300');
+
 const Skills = () => {
   const getIconComponent = (iconName: string) => {
     const iconMap: { [key: string]: React.ComponentType } = {
@@ -69,25 +80,30 @@ const Skills = () => {
             </h4>
             <div className="space-y-4">
               {category.skills.map((skill) => (
-                <div
-                  key={skill.name}
-                  className="flex items-center justify-between"
-                >
-                  <div className="flex items-center space-x-3">
-                    <span className={`${skill.color} text-2xl`}>
-                      {getIconComponent(skill.icon)}
-                    </span>
-                    <span className="font-medium text-gray-700">
-                      {skill.name}
+                <div key={skill.name} className="space-y-1">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <span className={`${skill.color} text-2xl`}>
+                        {getIconComponent(skill.icon)}
+                      </span>
+                      <span className="font-semibold text-gray-800 text-sm">
+                        {skill.name}
+                      </span>
+                    </div>
+                    <span
+                      className={`px-2 py-0.5 rounded-full text-xs font-medium ${getLevelColor(
+                        skill.level
+                      )}`}
+                    >
+                      {skill.level}
                     </span>
                   </div>
-                  <span
-                    className={`px-2 py-1 rounded-full text-xs font-medium ${getLevelColor(
-                      skill.level
-                    )}`}
-                  >
-                    {skill.level}
-                  </span>
+                  <div className="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                    <div
+                      className={`h-1.5 rounded-full transition-all duration-500 ${getBarColor(skill.level)}`}
+                      style={{ width: `${getLevelPercent(skill.level)}%` }}
+                    />
+                  </div>
                 </div>
               ))}
             </div>

@@ -8,6 +8,22 @@ import {
   getTypeColor,
 } from '@/data/experience';
 
+const getDotBorderColor = (type: string): string =>
+  ({
+    work: 'border-blue-400',
+    education: 'border-emerald-400',
+    achievement: 'border-amber-400',
+    project: 'border-purple-400',
+  }[type] ?? 'border-gray-300');
+
+const getDotBg = (type: string): string =>
+  ({
+    work: 'bg-blue-50',
+    education: 'bg-emerald-50',
+    achievement: 'bg-amber-50',
+    project: 'bg-purple-50',
+  }[type] ?? 'bg-white');
+
 const ExperienceTimeline = () => {
   const getIcon = (type: string) => {
     switch (type) {
@@ -39,7 +55,7 @@ const ExperienceTimeline = () => {
 
       <div className="relative">
         {/* Timeline Line */}
-        <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-300"></div>
+        <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-400 via-emerald-400 to-purple-400"></div>
 
         {experienceData.map((item, index) => (
           <div
@@ -47,7 +63,7 @@ const ExperienceTimeline = () => {
             className="relative flex items-start mb-8 last:mb-0"
           >
             {/* Timeline Dot */}
-            <div className="flex-shrink-0 w-16 h-16 bg-white border-4 border-gray-300 rounded-full flex items-center justify-center relative z-10 shadow-lg">
+            <div className={`flex-shrink-0 w-16 h-16 ${getDotBg(item.type)} border-4 ${getDotBorderColor(item.type)} rounded-full flex items-center justify-center relative z-10 shadow-lg`}>
               {getIcon(item.type)}
             </div>
 

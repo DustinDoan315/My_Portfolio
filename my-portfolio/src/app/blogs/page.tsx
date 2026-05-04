@@ -1,10 +1,17 @@
+'use client';
 import { blogPosts } from '@/utils/mock';
 import Link from 'next/link';
+import { useState } from 'react';
 import { FaCalendarAlt, FaClock, FaTag } from 'react-icons/fa';
 
 /* eslint-disable @next/next/no-img-element */
 const BlogsPage = () => {
+  const [activeCategory, setActiveCategory] = useState<string>('All');
   const categories = [...new Set(blogPosts.map((post) => post.category))];
+  const filtered =
+    activeCategory === 'All'
+      ? blogPosts
+      : blogPosts.filter((post) => post.category === activeCategory);
 
   return (
     <div className="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen py-12">
@@ -25,23 +32,35 @@ const BlogsPage = () => {
             Categories:
           </h3>
           <div className="flex flex-wrap gap-3">
-            <span className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium">
+            <button
+              onClick={() => setActiveCategory('All')}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 ${
+                activeCategory === 'All'
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+              }`}
+            >
               All Posts ({blogPosts.length})
-            </span>
+            </button>
             {categories.map((category) => (
-              <span
+              <button
                 key={category}
-                className="bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-50 cursor-pointer transition-colors"
+                onClick={() => setActiveCategory(category)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 ${
+                  activeCategory === category
+                    ? 'bg-blue-600 text-white shadow-md'
+                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                }`}
               >
-                {category}
-              </span>
+                {category} ({blogPosts.filter((p) => p.category === category).length})
+              </button>
             ))}
           </div>
         </div>
 
         {/* Blog Posts Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-16">
-          {blogPosts.map((post) => (
+          {filtered.map((post) => (
             <article
               key={post.id}
               className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
@@ -112,13 +131,19 @@ const BlogsPage = () => {
                 {/* Read More Button */}
                 <Link
                   href={`/blogs/${post.id}`}
-                  className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center"
+                  className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
                 >
                   Read Full Article
                 </Link>
               </div>
             </article>
           ))}
+
+          {filtered.length === 0 && (
+            <div className="col-span-2 text-center py-16 text-gray-400">
+              <p className="text-lg">No posts found in this category.</p>
+            </div>
+          )}
         </div>
 
         {/* Newsletter Signup */}
@@ -133,7 +158,7 @@ const BlogsPage = () => {
               placeholder="Enter your email"
               className="flex-grow px-4 py-3 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-white"
             />
-            <button className="bg-white text-blue-600 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors">
+            <button className="bg-white text-blue-600 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2">
               Subscribe
             </button>
           </div>

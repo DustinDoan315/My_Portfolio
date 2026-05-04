@@ -33,13 +33,13 @@ export const skillCategories: SkillCategory[] = [
         name: 'React Native',
         icon: 'FaReact',
         level: 'Expert',
-        color: 'text-cyan-500',
+        color: 'text-cyan-700',
       },
       {
         name: 'Next.js',
         icon: 'SiNextdotjs',
         level: 'Advanced',
-        color: 'text-gray-600',
+        color: 'text-gray-900',
       },
       {
         name: 'TypeScript',
@@ -51,13 +51,13 @@ export const skillCategories: SkillCategory[] = [
         name: 'JavaScript',
         icon: 'FaJs',
         level: 'Expert',
-        color: 'text-yellow-500',
+        color: 'text-amber-500',
       },
       {
         name: 'Tailwind CSS',
         icon: 'SiTailwindcss',
         level: 'Advanced',
-        color: 'text-cyan-400',
+        color: 'text-cyan-600',
       },
     ],
   },
@@ -74,13 +74,13 @@ export const skillCategories: SkillCategory[] = [
         name: 'Python',
         icon: 'FaPython',
         level: 'Intermediate',
-        color: 'text-yellow-400',
+        color: 'text-blue-600',
       },
       {
         name: 'GraphQL',
         icon: 'SiGraphql',
         level: 'Advanced',
-        color: 'text-pink-500',
+        color: 'text-pink-700',
       },
     ],
   },
@@ -97,7 +97,7 @@ export const skillCategories: SkillCategory[] = [
         name: 'PostgreSQL',
         icon: 'SiPostgresql',
         level: 'Intermediate',
-        color: 'text-yellow-700',
+        color: 'text-indigo-600',
       },
       {
         name: 'Firebase',
@@ -114,7 +114,7 @@ export const skillCategories: SkillCategory[] = [
         name: 'Expo',
         icon: 'SiExpo',
         level: 'Advanced',
-        color: 'text-gray-800',
+        color: 'text-gray-900',
       },
       {
         name: 'Redux',
@@ -132,13 +132,13 @@ export const skillCategories: SkillCategory[] = [
         name: 'Docker',
         icon: 'FaDocker',
         level: 'Intermediate',
-        color: 'text-yellow-500',
+        color: 'text-blue-500',
       },
       {
         name: 'AWS',
         icon: 'FaAws',
         level: 'Intermediate',
-        color: 'text-yellow-400',
+        color: 'text-orange-500',
       },
     ],
   },
@@ -149,13 +149,13 @@ export const skillCategories: SkillCategory[] = [
         name: 'Solidity',
         icon: 'SiSolidity',
         level: 'Intermediate',
-        color: 'text-yellow-700',
+        color: 'text-slate-600',
       },
       {
         name: 'Web3.js',
         icon: 'SiWeb3Dotjs',
         level: 'Intermediate',
-        color: 'text-yellow-600',
+        color: 'text-amber-600',
       },
     ],
   },
@@ -199,14 +199,14 @@ export const certifications: Certification[] = [
 export const getLevelColor = (level: string): string => {
   switch (level) {
     case 'Expert':
-      return 'bg-green-100 text-green-800';
+      return 'bg-emerald-100 text-emerald-800 border border-emerald-300';
     case 'Advanced':
-      return 'bg-blue-100 text-blue-800';
+      return 'bg-blue-100 text-blue-800 border border-blue-300';
     case 'Intermediate':
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-amber-100 text-amber-800 border border-amber-300';
     case 'Beginner':
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-gray-100 text-gray-700 border border-gray-300';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-gray-100 text-gray-700 border border-gray-300';
   }
 };
