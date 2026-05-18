@@ -10,15 +10,6 @@ export interface SkillCategory {
   skills: Skill[];
 }
 
-export interface Certification {
-  title: string;
-  organization: string;
-  date: string;
-  icon: string;
-  iconColor: string;
-  bgColor: string;
-}
-
 export const skillCategories: SkillCategory[] = [
   {
     title: 'Frontend',
@@ -158,41 +149,6 @@ export const skillCategories: SkillCategory[] = [
         color: 'text-amber-600',
       },
     ],
-  },
-];
-
-export const certifications: Certification[] = [
-  {
-    title: 'React Native Certified Developer',
-    organization: 'Meta Blueprint - 2023',
-    date: '2023',
-    icon: '🏆',
-    iconColor: 'text-blue-600',
-    bgColor: 'bg-blue-50',
-  },
-  {
-    title: 'AWS Cloud Practitioner',
-    organization: 'Amazon Web Services - 2023',
-    date: '2023',
-    icon: '🎓',
-    iconColor: 'text-green-600',
-    bgColor: 'bg-green-50',
-  },
-  {
-    title: 'Top 1% React Native Developer',
-    organization: 'Stack Overflow - 2024',
-    date: '2024',
-    icon: '⭐',
-    iconColor: 'text-purple-600',
-    bgColor: 'bg-purple-50',
-  },
-  {
-    title: 'Mobile App Performance Expert',
-    organization: 'Google Play Console - 2024',
-    date: '2024',
-    icon: '🚀',
-    iconColor: 'text-orange-600',
-    bgColor: 'bg-orange-50',
   },
 ];
 

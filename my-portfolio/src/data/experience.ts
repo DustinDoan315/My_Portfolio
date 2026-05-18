@@ -51,19 +51,6 @@ export const experienceData: TimelineItem[] = [
     ],
   },
   {
-    id: 3,
-    type: 'achievement',
-    title: 'Top 1% React Native Developer',
-    organization: 'Stack Overflow',
-    location: 'Global',
-    period: '2024',
-    description: [
-      'Recognized as top 1% React Native developer based on community contributions',
-      'Active contributor to open-source projects',
-      'Helped 1000+ developers through answers and solutions',
-    ],
-  },
-  {
     id: 4,
     type: 'work',
     title: 'Junior React Developer',
@@ -95,19 +82,6 @@ export const experienceData: TimelineItem[] = [
       "Dean's List for 6 semesters",
       'Winner of Annual Hackathon 2019',
       'Research assistant in AI/ML lab',
-    ],
-  },
-  {
-    id: 6,
-    type: 'achievement',
-    title: 'AWS Certified Developer',
-    organization: 'Amazon Web Services',
-    location: 'Global',
-    period: '2023',
-    description: [
-      'Achieved AWS Certified Developer Associate certification',
-      'Demonstrated proficiency in developing and maintaining AWS applications',
-      'Expertise in AWS services, security, and best practices',
     ],
   },
 ];
@@ -145,6 +119,6 @@ export const getTypeColor = (type: string): string => {
 export const experienceStats = {
   yearsExperience: '4+',
   projectsDelivered: '50+',
-  certifications: '3',
+  openSourceRepos: '43',
   appDownloads: '100K+',
 };

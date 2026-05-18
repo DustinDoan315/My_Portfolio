@@ -30,7 +30,7 @@ export const projectItems: Project[] = [
     image: '/AppImages/1-1.png',
     title: 'Trading Simulation App',
     description:
-      'Educational crypto trading simulator with virtual money, real-time market data, portfolio management, and social learning features. Built with Expo Router and Supabase.',
+      'Educational crypto trading simulator with virtual money, real-time market data, portfolio management, and social learning features. Built with Expo Router and Supabase. 24 ★ on GitHub.',
     category: 'Finance',
     technologies: [
       'React Native',
@@ -117,7 +117,7 @@ export const projectItems: Project[] = [
     image: '/pj2.png',
     title: 'React Native DnD Like iOS',
     description:
-      'Published npm library providing an iOS-style drag-and-drop sortable grid with long-press activation, wiggle animation, and full TypeScript support. No external animation deps.',
+      'Published npm library providing an iOS-style drag-and-drop sortable grid with long-press activation, wiggle animation, and full TypeScript support. No external animation deps. 8 ★ on GitHub.',
     category: 'Open Source',
     technologies: [
       'React Native',
@@ -262,7 +262,7 @@ export const blogPosts: BlogPost[] = [
     content:
       "TypeScript has become essential for building maintainable JavaScript applications. This article covers advanced TypeScript patterns, proper type definitions, and configuration strategies for large codebases. Learn about utility types, conditional types, and how to leverage TypeScript's powerful type system for better developer experience. We'll explore real-world examples from enterprise applications and discuss migration strategies from JavaScript to TypeScript.",
     tags: ['TypeScript', 'JavaScript', 'Best Practices', 'Enterprise', 'Types'],
-    image: '/tulip.jpg',
+    image: '/pj3.png',
     readTime: '14 min read',
     category: 'Programming Languages',
   },
@@ -295,7 +295,7 @@ export const blogPosts: BlogPost[] = [
     content:
       'A practical walkthrough of configuring EAS Build and EAS Update with channels for dev, staging, and prod. Learn release workflows, rollout strategies, and how to debug updates in the wild without shipping a new binary.',
     tags: ['Expo', 'EAS', 'React Native', 'OTA', 'Release Management'],
-    image: '/images/expo-eas.png',
+    image: '/AppImages/1-4.png',
     readTime: '9 min read',
     category: 'Mobile Development',
   },
@@ -306,7 +306,7 @@ export const blogPosts: BlogPost[] = [
     content:
       'Real-world patterns for Sequelize: inner joins across user_subscription and transaction tables, reusable scopes for filtering, and offset/limit pagination with total counts. Includes strategies for partial search on email, phone, and vb_number.',
     tags: ['Sequelize', 'PostgreSQL', 'Node.js', 'ORM', 'Backend'],
-    image: '/images/sequelize.png',
+    image: '/pj1.png',
     readTime: '10 min read',
     category: 'Backend Development',
   },
@@ -317,7 +317,7 @@ export const blogPosts: BlogPost[] = [
     content:
       'End-to-end JWT authentication for React Native: secure storage, auto-attach headers, token refresh flows, and error handling with Axios interceptors. Covers edge cases and best practices for mobile clients.',
     tags: ['JWT', 'Axios', 'Security', 'React Native', 'Authentication'],
-    image: '/images/jwt-axios.png',
+    image: '/pj2.png',
     readTime: '8 min read',
     category: 'Security',
   },
@@ -328,7 +328,7 @@ export const blogPosts: BlogPost[] = [
     content:
       'A cohesive MAUI architecture using MVVM Toolkit, dependency injection, Shell routing, and SQLite caching. Learn how to structure view models, services, and repositories for testability and performance.',
     tags: ['.NET MAUI', 'C#', 'MVVM', 'SQLite', 'Architecture'],
-    image: '/images/maui-mvvm.png',
+    image: '/pj3.png',
     readTime: '12 min read',
     category: 'Mobile Development',
   },
@@ -339,7 +339,7 @@ export const blogPosts: BlogPost[] = [
     content:
       'Implementing Bluetooth Low Energy flows to configure ESP32 devices: scanning, secure pairing, characteristics, and OTA updates. Includes tips for background modes and user privacy.',
     tags: ['BLE', 'ESP32', 'React Native', 'IoT', 'Mobile'],
-    image: '/images/ble-esp32.png',
+    image: '/AppImages/1-5.png',
     readTime: '16 min read',
     category: 'IoT',
   },
@@ -350,7 +350,7 @@ export const blogPosts: BlogPost[] = [
     content:
       'Designing robust offline Excel exports with ExcelJS. Covers streaming writers, styling, large dataset memory tips, and integrating with job schedulers like node-schedule.',
     tags: ['ExcelJS', 'Node.js', 'Exports', 'SaaS', 'Backend'],
-    image: '/images/exceljs.png',
+    image: '/AppImages/1-6.png',
     readTime: '7 min read',
     category: 'Backend Development',
   },
@@ -361,7 +361,7 @@ export const blogPosts: BlogPost[] = [
     content:
       'Implement card payments and native wallets with the Stripe React Native SDK. Handle payment intents, 3DS flows, and build a reliable subscription lifecycle.',
     tags: ['Stripe', 'Payments', 'React Native', 'Apple Pay', 'Google Pay'],
-    image: '/images/stripe-rn.png',
+    image: '/generator.png',
     readTime: '11 min read',
     category: 'Mobile Development',
   },
@@ -372,7 +372,7 @@ export const blogPosts: BlogPost[] = [
     content:
       'Spin up a FastAPI server locally and expose it securely with ngrok for testing webhooks and mobile callbacks. Discusses signing secrets, retries, and observability.',
     tags: ['FastAPI', 'ngrok', 'Webhooks', 'Backend', 'DX'],
-    image: '/images/fastapi-ngrok.png',
+    image: '/diff.png',
     readTime: '6 min read',
     category: 'Backend Development',
   },

@@ -2,7 +2,7 @@ import Header from '@/components/Header';
 import { siteMetadata } from '@/data/metadata';
 import { personalInfo } from '@/data/personal';
 import localFont from 'next/font/local';
-import { FaFacebook, FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaFacebook, FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 import './globals.css';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -25,12 +25,14 @@ const iconMap: { [key: string]: React.ComponentType<{ size?: number }> } = {
   FaFacebook,
   FaGithub,
   FaLinkedin,
+  FaTwitter,
 };
 
 const hoverClasses: Record<string, string> = {
   FaFacebook: 'hover:text-blue-500',
   FaGithub: 'hover:text-gray-400',
   FaLinkedin: 'hover:text-blue-400',
+  FaTwitter: 'hover:text-sky-400',
 };
 
 const SocialLink = ({
@@ -65,7 +67,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800 dark:text-gray-200">
+        <div className="flex flex-col min-h-screen bg-gray-950 text-gray-200">
           {/* Header */}
           <Header />
           <main className="flex-grow">{children}</main>

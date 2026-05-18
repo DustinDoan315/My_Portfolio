@@ -57,12 +57,12 @@ const ContactForm = () => {
 
   if (isSubmitted) {
     return (
-      <div className="bg-white rounded-xl shadow-lg p-8 text-center">
+      <div className="bg-gray-900 rounded-xl shadow-lg border border-gray-800 p-8 text-center">
         <div className="flex justify-center mb-4">
-          <FaCheckCircle className="text-green-500 text-6xl" />
+          <FaCheckCircle className="text-emerald-400 text-6xl" />
         </div>
-        <h3 className="text-2xl font-bold text-gray-800 mb-2">Message Sent!</h3>
-        <p className="text-gray-600">
+        <h3 className="text-2xl font-bold text-gray-100 mb-2">Message Sent!</h3>
+        <p className="text-gray-400">
           Thank you for your message. I&#39;ll get back to you as soon as
           possible.
         </p>
@@ -71,10 +71,10 @@ const ContactForm = () => {
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-8">
+    <div className="bg-gray-900 rounded-xl shadow-lg border border-gray-800 p-8">
       <div className="text-center mb-8">
-        <h3 className="text-3xl font-bold text-gray-800 mb-4">Get In Touch</h3>
-        <p className="text-gray-600 max-w-2xl mx-auto">
+        <h3 className="text-3xl font-bold text-gray-100 mb-4">Get In Touch</h3>
+        <p className="text-gray-400 max-w-2xl mx-auto">
           Have a project in mind or want to collaborate? I&#39;d love to hear
           from you. Send me a message and I&#39;ll respond as soon as possible.
         </p>
@@ -86,13 +86,13 @@ const ContactForm = () => {
           <div>
             <label
               htmlFor="name"
-              className="block text-sm font-medium text-gray-700 mb-2"
+              className="block text-sm font-medium text-gray-300 mb-2"
             >
               Full Name *
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <FaUser className="text-gray-400" />
+                <FaUser className="text-gray-500" />
               </div>
               <input
                 type="text"
@@ -101,7 +101,7 @@ const ContactForm = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className="block w-full pl-10 pr-3 py-3 bg-gray-800 border border-gray-700 text-gray-100 placeholder-gray-500 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors"
                 placeholder="Your full name"
               />
             </div>
@@ -111,13 +111,13 @@ const ContactForm = () => {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700 mb-2"
+              className="block text-sm font-medium text-gray-300 mb-2"
             >
               Email Address *
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <FaEnvelope className="text-gray-400" />
+                <FaEnvelope className="text-gray-500" />
               </div>
               <input
                 type="email"
@@ -126,7 +126,7 @@ const ContactForm = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className="block w-full pl-10 pr-3 py-3 bg-gray-800 border border-gray-700 text-gray-100 placeholder-gray-500 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors"
                 placeholder="your.email@example.com"
               />
             </div>
@@ -137,7 +137,7 @@ const ContactForm = () => {
         <div>
           <label
             htmlFor="subject"
-            className="block text-sm font-medium text-gray-700 mb-2"
+            className="block text-sm font-medium text-gray-300 mb-2"
           >
             Subject *
           </label>
@@ -148,7 +148,7 @@ const ContactForm = () => {
             value={formData.subject}
             onChange={handleChange}
             required
-            className="block w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+            className="block w-full px-3 py-3 bg-gray-800 border border-gray-700 text-gray-100 placeholder-gray-500 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors"
             placeholder="What would you like to discuss?"
           />
         </div>
@@ -157,13 +157,13 @@ const ContactForm = () => {
         <div>
           <label
             htmlFor="message"
-            className="block text-sm font-medium text-gray-700 mb-2"
+            className="block text-sm font-medium text-gray-300 mb-2"
           >
             Message *
           </label>
           <div className="relative">
             <div className="absolute top-3 left-3 pointer-events-none">
-              <FaComment className="text-gray-400" />
+              <FaComment className="text-gray-500" />
             </div>
             <textarea
               id="message"
@@ -172,7 +172,7 @@ const ContactForm = () => {
               onChange={handleChange}
               required
               rows={6}
-              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none"
+              className="block w-full pl-10 pr-3 py-3 bg-gray-800 border border-gray-700 text-gray-100 placeholder-gray-500 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors resize-none"
               placeholder="Tell me about your project, ideas, or how I can help you..."
             />
           </div>
@@ -185,8 +185,8 @@ const ContactForm = () => {
             disabled={isSubmitting}
             className={`inline-flex items-center space-x-2 px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white transition-all duration-200 ${
               isSubmitting
-                ? 'bg-gray-400 cursor-not-allowed'
-                : 'bg-blue-600 hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5'
+                ? 'bg-gray-600 cursor-not-allowed'
+                : 'bg-cyan-600 hover:bg-cyan-700 hover:shadow-lg transform hover:-translate-y-0.5'
             }`}
           >
             {isSubmitting ? (
@@ -205,28 +205,28 @@ const ContactForm = () => {
       </form>
 
       {/* Contact Info */}
-      <div className="mt-8 pt-8 border-t border-gray-200">
+      <div className="mt-8 pt-8 border-t border-gray-700">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
           <div>
-            <div className="bg-blue-100 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
-              <FaEnvelope className="text-blue-600" />
+            <div className="bg-blue-900 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+              <FaEnvelope className="text-blue-400" />
             </div>
-            <h4 className="font-semibold text-gray-800">Email</h4>
-            <p className="text-gray-600 text-sm">{personalInfo.email}</p>
+            <h4 className="font-semibold text-gray-200">Email</h4>
+            <p className="text-gray-400 text-sm">{personalInfo.email}</p>
           </div>
           <div>
-            <div className="bg-green-100 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
-              <span className="text-green-600 text-lg">🌍</span>
+            <div className="bg-emerald-900 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+              <span className="text-emerald-400 text-lg">🌏</span>
             </div>
-            <h4 className="font-semibold text-gray-800">Location</h4>
-            <p className="text-gray-600 text-sm">{personalInfo.location}</p>
+            <h4 className="font-semibold text-gray-200">Location</h4>
+            <p className="text-gray-400 text-sm">{personalInfo.location}</p>
           </div>
           <div>
-            <div className="bg-purple-100 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
-              <span className="text-purple-600 text-lg">⚡</span>
+            <div className="bg-purple-900 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+              <span className="text-purple-400 text-lg">⚡</span>
             </div>
-            <h4 className="font-semibold text-gray-800">Response Time</h4>
-            <p className="text-gray-600 text-sm">
+            <h4 className="font-semibold text-gray-200">Response Time</h4>
+            <p className="text-gray-400 text-sm">
               {personalInfo.contact.responseTime}
             </p>
           </div>

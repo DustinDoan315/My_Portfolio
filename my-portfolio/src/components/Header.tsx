@@ -21,20 +21,20 @@ const Header = () => {
     href === '/' ? pathname === '/' : pathname?.startsWith(href) ?? false;
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
+    <header className="bg-gray-950 border-b border-gray-800 sticky top-0 z-50">
       <nav className="container mx-auto flex justify-between items-center p-4">
         {/* Logo */}
         <Link
           href="/"
-          className="text-cyan-600 text-3xl font-semibold"
+          className="text-cyan-400 text-2xl font-semibold tracking-tight"
         >
-          Nature Sound
+          DustinDoan315
         </Link>
 
         <div className="flex items-center">
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden text-cyan-600 text-xl focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 rounded-md p-1"
+            className="lg:hidden text-cyan-400 text-xl focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-950 rounded-md p-1"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
@@ -56,8 +56,8 @@ const Header = () => {
                 href={href}
                 className={`transition-all duration-300 text-base lg:text-lg font-semibold rounded-xl px-4 py-2 hover:scale-105 block ${
                   isActive(href)
-                    ? 'bg-gradient-to-r from-cyan-400 to-blue-500 text-white shadow-lg'
-                    : 'text-gray-700 hover:text-cyan-600'
+                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg'
+                    : 'text-gray-300 hover:text-cyan-400'
                 }`}
               >
                 {label}

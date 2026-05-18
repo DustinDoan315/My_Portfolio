@@ -8,23 +8,23 @@ import { personalInfo } from '@/data/personal';
 const DashBoard = () => (
   <>
     <StructuredData />
-    <div className="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+    <div className="bg-gray-950 min-h-screen">
       <main className="flex-grow container mx-auto px-4 sm:px-8 py-12 max-w-7xl">
         {/* Hero Section */}
-        <div className="flex flex-col items-center rounded-3xl py-16 px-8 bg-gradient-to-br from-indigo-50 via-cyan-50 to-blue-100 mb-12 shadow-2xl">
+        <div className="flex flex-col items-center rounded-3xl py-16 px-8 bg-gradient-to-br from-gray-900 via-slate-900 to-gray-900 mb-12 shadow-2xl border border-gray-800">
           <div className="relative">
             <img
               src={personalInfo.avatar}
               alt={personalInfo.name}
-              className="rounded-full w-40 h-40 mb-6 shadow-2xl border-4 border-white"
+              className="rounded-full w-40 h-40 mb-6 shadow-2xl border-4 border-gray-700"
             />
-            <div className="absolute -bottom-2 -right-2 bg-emerald-400 w-6 h-6 rounded-full border-2 border-white"></div>
+            <div className="absolute -bottom-2 -right-2 bg-emerald-400 w-6 h-6 rounded-full border-2 border-gray-900"></div>
           </div>
 
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
+          <h1 className="text-4xl font-bold text-gray-100 mb-2">
             {personalInfo.name}
           </h1>
-          <h2 className="text-xl font-semibold text-gray-600 mb-4">
+          <h2 className="text-xl font-semibold text-gray-400 mb-4">
             {personalInfo.title}
           </h2>
 
@@ -39,7 +39,7 @@ const DashBoard = () => (
             ))}
           </div>
 
-          <p className="w-full max-w-4xl text-gray-700 text-center text-lg leading-relaxed mb-6">
+          <p className="w-full max-w-4xl text-gray-300 text-center text-lg leading-relaxed mb-6">
             {personalInfo.bio.short}
           </p>
 
@@ -51,24 +51,24 @@ const DashBoard = () => (
           {personalInfo.expertiseAreas.map((area) => (
             <div
               key={area.title}
-              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 hover:border-cyan-800 transition-all duration-300 hover:-translate-y-1"
             >
               <div className="flex items-center mb-4">
                 <div className={`${area.iconBg} p-3 rounded-lg mr-4`}>
                   <span className="text-2xl">{area.icon}</span>
                 </div>
-                <h3 className="text-xl font-bold text-gray-800">
+                <h3 className="text-xl font-bold text-gray-100">
                   {area.title}
                 </h3>
               </div>
-              <p className="text-gray-600">{area.description}</p>
+              <p className="text-gray-400">{area.description}</p>
             </div>
           ))}
         </div>
 
         {/* Quick Stats */}
-        <div className="bg-white rounded-2xl p-8 shadow-lg mb-12">
-          <h3 className="text-3xl font-bold text-gray-800 text-center mb-8">
+        <div className="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 mb-12">
+          <h3 className="text-3xl font-bold text-gray-100 text-center mb-8">
             Quick Stats
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -77,14 +77,14 @@ const DashBoard = () => (
                 <div className={`text-3xl font-bold ${stat.color}`}>
                   {stat.value}
                 </div>
-                <div className="text-gray-600">{stat.label}</div>
+                <div className="text-gray-400">{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
 
         {/* Call to Action */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-12 text-center text-white shadow-2xl">
+        <div className="bg-gradient-to-r from-blue-700 to-purple-700 rounded-2xl p-12 text-center text-white shadow-2xl border border-blue-600">
           <h3 className="text-3xl font-bold mb-6">
             Ready to Build Something Amazing?
           </h3>
@@ -95,13 +95,13 @@ const DashBoard = () => (
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <a
               href={`mailto:${personalInfo.email}`}
-              className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
+              className="bg-white text-blue-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
             >
               Get In Touch
             </a>
             <a
               href="/projects"
-              className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
+              className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
             >
               View My Work
             </a>

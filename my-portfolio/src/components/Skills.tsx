@@ -1,5 +1,5 @@
 'use client';
-import { certifications, getLevelColor, skillCategories } from '@/data/skills';
+import { getLevelColor, skillCategories } from '@/data/skills';
 import React from 'react';
 
 import {
@@ -33,8 +33,8 @@ const getBarColor = (level: string): string =>
     Expert: 'bg-gradient-to-r from-emerald-400 to-emerald-600',
     Advanced: 'bg-gradient-to-r from-blue-400 to-blue-600',
     Intermediate: 'bg-gradient-to-r from-amber-300 to-amber-500',
-    Beginner: 'bg-gradient-to-r from-gray-300 to-gray-400',
-  }[level] ?? 'bg-gray-300');
+    Beginner: 'bg-gradient-to-r from-gray-500 to-gray-600',
+  }[level] ?? 'bg-gray-600');
 
 const Skills = () => {
   const getIconComponent = (iconName: string) => {
@@ -65,7 +65,7 @@ const Skills = () => {
 
   return (
     <div className="mt-8 w-full max-w-6xl">
-      <h3 className="text-3xl font-bold text-gray-800 text-center mb-8">
+      <h3 className="text-3xl font-bold text-gray-100 text-center mb-8">
         Technical Skills
       </h3>
 
@@ -73,9 +73,9 @@ const Skills = () => {
         {skillCategories.map((category) => (
           <div
             key={category.title}
-            className="bg-white rounded-xl p-6 shadow-lg"
+            className="bg-gray-900 rounded-xl p-6 shadow-lg border border-gray-800"
           >
-            <h4 className="text-xl font-semibold text-gray-800 mb-4 text-center">
+            <h4 className="text-xl font-semibold text-gray-100 mb-4 text-center">
               {category.title}
             </h4>
             <div className="space-y-4">
@@ -86,7 +86,7 @@ const Skills = () => {
                       <span className={`${skill.color} text-2xl`}>
                         {getIconComponent(skill.icon)}
                       </span>
-                      <span className="font-semibold text-gray-800 text-sm">
+                      <span className="font-semibold text-gray-200 text-sm">
                         {skill.name}
                       </span>
                     </div>
@@ -98,7 +98,7 @@ const Skills = () => {
                       {skill.level}
                     </span>
                   </div>
-                  <div className="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                  <div className="w-full bg-gray-700 rounded-full h-1.5 overflow-hidden">
                     <div
                       className={`h-1.5 rounded-full transition-all duration-500 ${getBarColor(skill.level)}`}
                       style={{ width: `${getLevelPercent(skill.level)}%` }}
@@ -109,27 +109,6 @@ const Skills = () => {
             </div>
           </div>
         ))}
-      </div>
-
-      {/* Certifications */}
-      <div className="mt-8 bg-white rounded-xl p-6 shadow-lg">
-        <h4 className="text-xl font-semibold text-gray-800 mb-4 text-center">
-          Certifications & Achievements
-        </h4>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {certifications.map((cert) => (
-            <div
-              key={cert.title}
-              className={`flex items-center space-x-3 p-3 ${cert.bgColor} rounded-lg`}
-            >
-              <span className={cert.iconColor}>{cert.icon}</span>
-              <div>
-                <p className="font-medium text-gray-800">{cert.title}</p>
-                <p className="text-sm text-gray-600">{cert.organization}</p>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );

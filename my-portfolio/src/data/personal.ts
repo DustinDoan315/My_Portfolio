@@ -2,13 +2,13 @@ export const personalInfo = {
   name: 'Dustin Doan',
   title: 'Senior Mobile Engineer & Full-Stack Developer',
   email: 'dustindoan315@gmail.com',
-  phone: '+1-555-0123',
-  location: 'Remote / Worldwide',
+  phone: '',
+  location: 'Hồ Chí Minh, Vietnam',
   avatar: '/avatar.jpg',
 
   bio: {
     short:
-      '👋 Passionate Mobile Engineer with over 4 years of experience specializing in React Native development. I create seamless, high-performance mobile applications that deliver exceptional user experiences. My expertise spans across the entire development lifecycle, from conception to deployment.',
+      '👋 React Native Expert & AI Enthusiast with 4+ years of experience building high-performance mobile applications. I craft seamless cross-platform experiences using modern tooling — from Expo and Redux Toolkit to Supabase and NativeWind — with a growing focus on AI-powered features and intelligent UX.',
 
     detailed:
       'My passion lies in crafting user-centric applications that not only meet but exceed expectations. I thrive in collaborative environments and am always eager to tackle new challenges and learn new technologies.',
@@ -85,28 +85,34 @@ export const personalInfo = {
 
   socialLinks: [
     {
-      platform: 'Facebook',
-      url: 'https://www.facebook.com/profile.php?id=100008547228745',
-      icon: 'FaFacebook',
-      hoverColor: 'text-blue-500',
-    },
-    {
-      platform: 'Github',
+      platform: 'GitHub',
       url: 'https://github.com/DustinDoan315',
       icon: 'FaGithub',
-      hoverColor: 'text-gray-500',
+      hoverColor: 'text-gray-400',
     },
     {
       platform: 'LinkedIn',
       url: 'https://www.linkedin.com/in/dustin315/',
       icon: 'FaLinkedin',
+      hoverColor: 'text-blue-400',
+    },
+    {
+      platform: 'Twitter',
+      url: 'https://twitter.com/dustin_doan_315',
+      icon: 'FaTwitter',
+      hoverColor: 'text-sky-400',
+    },
+    {
+      platform: 'Facebook',
+      url: 'https://www.facebook.com/profile.php?id=100008547228745',
+      icon: 'FaFacebook',
       hoverColor: 'text-blue-500',
     },
   ],
 
   contact: {
     responseTime: 'Within 24 hours',
-    availability: 'Remote / Worldwide',
+    availability: 'Hồ Chí Minh, Vietnam · Remote',
     preferredContact: 'email',
   },
 };
