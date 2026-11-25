@@ -8,7 +8,7 @@ export function SiteHeader() {
       <Container className="flex h-14 items-center justify-between gap-4">
         <Link
           href="/"
-          className="shrink-0 text-[15px] font-semibold tracking-tight"
+          className="-my-2 shrink-0 py-3 text-[15px] font-semibold tracking-tight"
         >
           {site.name}
         </Link>
@@ -17,7 +17,7 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="whitespace-nowrap transition-colors hover:text-fg"
+              className="-my-2 whitespace-nowrap py-3 transition-colors hover:text-fg"
             >
               {item.label}
             </Link>

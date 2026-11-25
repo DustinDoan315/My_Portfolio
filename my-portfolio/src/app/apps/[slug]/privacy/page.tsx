@@ -78,7 +78,7 @@ export default async function PrivacyPage({ params }: Props) {
           <p>
             Questions about this policy:{' '}
             <a
-              className="text-accent hover:underline"
+              className="text-accent underline underline-offset-2"
               href={`mailto:${site.supportEmail}`}
             >
               {site.supportEmail}

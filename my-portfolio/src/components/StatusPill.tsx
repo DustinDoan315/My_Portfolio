@@ -18,7 +18,7 @@ export function StatusPill({
       <span className={`h-1.5 w-1.5 rounded-full ${dot[status]}`} />
       {STATUS_LABEL[status]}
       {version && status !== 'in-development' && (
-        <span className="font-mono text-[11px] opacity-70">v{version}</span>
+        <span className="font-mono text-[11px]">v{version}</span>
       )}
     </span>
   );

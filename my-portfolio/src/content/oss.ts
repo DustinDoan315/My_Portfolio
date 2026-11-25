@@ -5,6 +5,7 @@ export interface OssProject {
   href: string;
   npm?: string;
   language: string;
+  kind: 'library' | 'app';
 }
 
 // Star counts last synced from GitHub; refresh before release.
@@ -16,6 +17,7 @@ export const ossProjects: OssProject[] = [
     stars: 24,
     href: 'https://github.com/DustinDoan315/trading-simulation-app',
     language: 'TypeScript',
+    kind: 'app',
   },
   {
     name: 'RN-ReduxToolkit',
@@ -24,6 +26,7 @@ export const ossProjects: OssProject[] = [
     stars: 18,
     href: 'https://github.com/DustinDoan315/RN-ReduxToolkit',
     language: 'TypeScript',
+    kind: 'app',
   },
   {
     name: 'RN-BubbleNotify-NativeModule',
@@ -32,6 +35,7 @@ export const ossProjects: OssProject[] = [
     stars: 15,
     href: 'https://github.com/DustinDoan315/RN-BubbleNotify-NativeModule',
     language: 'Java',
+    kind: 'library',
   },
   {
     name: 'react-native-dnd-like-ios',
@@ -41,6 +45,7 @@ export const ossProjects: OssProject[] = [
     href: 'https://github.com/DustinDoan315/rn_dnd_like_ios',
     npm: 'https://www.npmjs.com/package/@dustindoan315/react-native-dnd-like-ios',
     language: 'TypeScript',
+    kind: 'library',
   },
 ];
 

@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# dustindoan.dev
 
-## Getting Started
-
-First, run the development server:
+Personal site and app hub for Dustin Doan, an iOS & React Native developer.
+Next.js 15 (App Router), Tailwind CSS, fully static.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn install
+yarn dev       # http://localhost:3000
+yarn build     # static build, 48 routes
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Editing content
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+All content lives in typed files in `src/content/`. No page code needs to change.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| File       | What                                                                      |
+| ---------- | ------------------------------------------------------------------------- |
+| `site.ts`  | Name, headline, email, socials, nav                                       |
+| `apps.ts`  | Every app: status, version, App Store ID, icon, screenshots, privacy, FAQ |
+| `oss.ts`   | Open-source repos and star counts                                         |
+| `about.ts` | Story, principles, toolbox, work timeline                                 |
 
-## Learn More
+Find remaining placeholders with `grep -rn "TODO(content)" src`.
 
-To learn more about Next.js, take a look at the following resources:
+### Adding real app assets
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Put files in `public/apps/<slug>/` (1024px unmasked `icon.png` and `.webp` screenshots).
+2. In `apps.ts`, set `icon`, `screenshots` and `appStoreId`.
+3. The icon, App Store button, Smart App Banner, OG card and JSON-LD update automatically.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### App Store Connect URLs
 
-## Deploy on Vercel
+Each app has a Support URL and a Privacy Policy URL:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `https://dustindoan.dev/apps/<slug>/support`
+- `https://dustindoan.dev/apps/<slug>/privacy`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Privacy pages show a "Draft" notice, hide data claims and stay `noindex` until
+`privacy.reviewed` is set to `true` for that app.

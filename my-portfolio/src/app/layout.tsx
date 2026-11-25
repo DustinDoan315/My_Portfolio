@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     url: site.url,
     locale: 'en_US',
   },
-  twitter: { card: 'summary', creator: '@dustin_doan_315' },
+  twitter: { card: 'summary_large_image', creator: '@dustin_doan_315' },
 };
 
 export const viewport: Viewport = {
@@ -71,9 +71,17 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-50 focus:rounded-full focus:bg-fg focus:px-4 focus:py-2 focus:text-sm focus:text-bg"
+        >
+          Skip to content
+        </a>
         <div className="flex min-h-screen flex-col">
           <SiteHeader />
-          <main className="flex-1">{children}</main>
+          <main id="main" className="flex-1">
+            {children}
+          </main>
           <SiteFooter />
         </div>
       </body>

@@ -1,6 +1,6 @@
 # Portfolio Redesign Plan
 
-Status: proposal · Date: 2026-11-25
+Status: phases 1–5 implemented (content placeholders remain) · Date: 2026-11-25
 
 ## 1. Diagnosis: why it reads as fake
 

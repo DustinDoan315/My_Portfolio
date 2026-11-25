@@ -21,6 +21,6 @@ export const site = {
 
 export const nav = [
   { href: '/apps', label: 'Apps' },
-  { href: '/#open-source', label: 'Open Source' },
+  { href: '/open-source', label: 'Open Source' },
   { href: '/about', label: 'About' },
 ] as const;
