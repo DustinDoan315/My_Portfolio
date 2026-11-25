@@ -1,115 +1,153 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
-import Skills from '@/components/Skills';
-import StructuredData from '@/components/StructuredData';
-import { personalInfo } from '@/data/personal';
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { AppIcon } from '@/components/AppIcon';
+import { AppTile } from '@/components/AppTile';
+import { Container } from '@/components/Container';
+import { Section } from '@/components/Section';
+import { StatusPill } from '@/components/StatusPill';
+import { apps, appsByStatus } from '@/content/apps';
+import { ossProjects, totalStars } from '@/content/oss';
+import { site } from '@/content/site';
+import { ArrowUpRight, Star } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
-const DashBoard = () => (
-  <>
-    <StructuredData />
-    <div className="bg-gray-950 min-h-screen">
-      <main className="flex-grow container mx-auto px-4 sm:px-8 py-12 max-w-7xl">
-        {/* Hero Section */}
-        <div className="flex flex-col items-center rounded-3xl py-16 px-8 bg-gradient-to-br from-gray-900 via-slate-900 to-gray-900 mb-12 shadow-2xl border border-gray-800">
-          <div className="relative">
-            <img
-              src={personalInfo.avatar}
-              alt={personalInfo.name}
-              className="rounded-full w-40 h-40 mb-6 shadow-2xl border-4 border-gray-700"
-            />
-            <div className="absolute -bottom-2 -right-2 bg-emerald-400 w-6 h-6 rounded-full border-2 border-gray-900"></div>
-          </div>
+export default function HomePage() {
+  const live = appsByStatus('live');
+  const upcoming = apps.filter((a) => a.status !== 'live');
 
-          <h1 className="text-4xl font-bold text-gray-100 mb-2">
-            {personalInfo.name}
-          </h1>
-          <h2 className="text-xl font-semibold text-gray-400 mb-4">
-            {personalInfo.title}
-          </h2>
-
-          <div className="flex flex-wrap gap-3 mb-6">
-            {personalInfo.badges.map((badge) => (
-              <span
-                key={badge.text}
-                className={`${badge.color} px-3 py-1 rounded-full text-sm font-medium`}
-              >
-                {badge.text}
-              </span>
-            ))}
-          </div>
-
-          <p className="w-full max-w-4xl text-gray-300 text-center text-lg leading-relaxed mb-6">
-            {personalInfo.bio.short}
-          </p>
-
-          <Skills />
+  return (
+    <>
+      {/* Hero */}
+      <Container className="pt-16 sm:pt-24">
+        <Image
+          src={site.avatar}
+          alt={site.name}
+          width={56}
+          height={56}
+          priority
+          className="mb-8 rounded-full ring-1 ring-line"
+        />
+        <h1 className="text-display max-w-3xl">{site.headline}</h1>
+        <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+          {site.intro}
+        </p>
+        <p className="mt-4 text-sm text-muted">
+          <span className="font-mono text-fg">{live.length}</span> apps live ·{' '}
+          <span className="font-mono text-fg">{upcoming.length}</span> on the
+          way · <span className="font-mono text-fg">{totalStars}</span> GitHub
+          stars
+        </p>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <a
+            href={`mailto:${site.email}`}
+            className="rounded-full bg-fg px-5 py-2.5 text-sm font-medium text-bg transition-opacity hover:opacity-85"
+          >
+            Work with me
+          </a>
+          <Link
+            href="/apps"
+            className="rounded-full border border-line px-5 py-2.5 text-sm font-medium transition-colors hover:bg-surface"
+          >
+            See all apps
+          </Link>
         </div>
+      </Container>
 
-        {/* Expertise Areas */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          {personalInfo.expertiseAreas.map((area) => (
-            <div
-              key={area.title}
-              className="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 hover:border-cyan-800 transition-all duration-300 hover:-translate-y-1"
-            >
-              <div className="flex items-center mb-4">
-                <div className={`${area.iconBg} p-3 rounded-lg mr-4`}>
-                  <span className="text-2xl">{area.icon}</span>
-                </div>
-                <h3 className="text-xl font-bold text-gray-100">
-                  {area.title}
-                </h3>
-              </div>
-              <p className="text-gray-400">{area.description}</p>
-            </div>
+      {/* Live apps */}
+      <Section title="On the App Store" aside={`${live.length} apps`}>
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:gap-x-8 lg:grid-cols-4">
+          {live.map((app, i) => (
+            <AppTile key={app.slug} app={app} priority={i < 4} />
           ))}
         </div>
+      </Section>
 
-        {/* Quick Stats */}
-        <div className="bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-800 mb-12">
-          <h3 className="text-3xl font-bold text-gray-100 text-center mb-8">
-            Quick Stats
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {personalInfo.stats.map((stat) => (
-              <div key={stat.label}>
-                <div className={`text-3xl font-bold ${stat.color}`}>
-                  {stat.value}
+      {/* Upcoming */}
+      <Section title="On the workbench" aside="In review and in development">
+        <ul className="divide-y divide-line">
+          {upcoming.map((app) => (
+            <li key={app.slug}>
+              <Link
+                href={`/apps/${app.slug}`}
+                className="group flex items-center gap-4 py-4"
+              >
+                <AppIcon app={app} size={44} />
+                <div className="min-w-0 flex-1">
+                  <p className="font-medium tracking-tight group-hover:text-accent">
+                    {app.name}
+                    {app.platforms.includes('macOS') && (
+                      <span className="ml-2 text-xs text-muted">macOS</span>
+                    )}
+                  </p>
+                  <p className="truncate text-sm text-muted">{app.subtitle}</p>
                 </div>
-                <div className="text-gray-400">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+                <StatusPill status={app.status} />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Section>
 
-        {/* Call to Action */}
-        <div className="bg-gradient-to-r from-blue-700 to-purple-700 rounded-2xl p-12 text-center text-white shadow-2xl border border-blue-600">
-          <h3 className="text-3xl font-bold mb-6">
-            Ready to Build Something Amazing?
-          </h3>
-          <p className="text-xl mb-8 opacity-90 max-w-3xl mx-auto">
-            Let&#39;s collaborate and bring your ideas to life with cutting-edge
-            technology and exceptional user experiences.
+      {/* Open source */}
+      <Section
+        id="open-source"
+        title="Open source"
+        aside={
+          <span className="inline-flex items-center gap-1">
+            <Star className="h-3.5 w-3.5" aria-hidden /> {totalStars} total
+          </span>
+        }
+      >
+        <ul className="divide-y divide-line">
+          {ossProjects.map((p) => (
+            <li key={p.name}>
+              <a
+                href={p.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:gap-6"
+              >
+                <span className="font-mono text-sm font-medium group-hover:text-accent sm:w-72 sm:shrink-0">
+                  {p.name}
+                  <ArrowUpRight
+                    className="ml-1 inline h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100"
+                    aria-hidden
+                  />
+                </span>
+                <span className="flex-1 text-[15px] text-muted">
+                  {p.description}
+                </span>
+                <span className="inline-flex items-center gap-1 font-mono text-xs text-muted">
+                  <Star className="h-3 w-3" aria-hidden />
+                  {p.stars}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      {/* About teaser */}
+      <Section title="About">
+        <div className="max-w-2xl space-y-4 text-[17px] leading-relaxed text-fg/85">
+          {/* TODO(content): replace with your own voice. */}
+          <p>
+            I&apos;m a mobile developer with 4+ years of React Native
+            experience. These days I spend most of my time building my own iOS
+            apps end to end: product, design, code, App Store review and
+            everything after launch.
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <a
-              href={`mailto:${personalInfo.email}`}
-              className="bg-white text-blue-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
-            >
-              Get In Touch
-            </a>
-            <a
-              href="/projects"
-              className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
-            >
-              View My Work
-            </a>
-          </div>
+          <p>
+            I&apos;m open to freelance and full-time roles where shipping
+            quality mobile software is the job.
+          </p>
+          <Link
+            href="/about"
+            className="inline-block text-accent hover:underline"
+          >
+            More about me →
+          </Link>
         </div>
-      </main>
-    </div>
-  </>
-);
-
-export default DashBoard;
+      </Section>
+    </>
+  );
+}

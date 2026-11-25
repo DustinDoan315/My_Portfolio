@@ -1,16 +1,32 @@
 import type { Config } from 'tailwindcss';
 
+const token = (name: string) => `rgb(var(--${name}) / <alpha-value>)`;
+
 const config: Config = {
-  content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ['./src/**/*.{ts,tsx,mdx}'],
   theme: {
     extend: {
       colors: {
-        background: 'var(--background)',
-        foreground: 'var(--foreground)',
+        bg: token('bg'),
+        surface: token('surface'),
+        fg: token('text'),
+        muted: token('muted'),
+        line: token('border'),
+        accent: token('accent'),
+        live: token('live'),
+        review: token('review'),
+      },
+      fontFamily: {
+        mono: ['var(--font-geist-mono)', 'ui-monospace', 'monospace'],
+      },
+      fontSize: {
+        display: [
+          'clamp(2.5rem, 6vw, 4.5rem)',
+          { lineHeight: '1.02', letterSpacing: '-0.035em', fontWeight: '700' },
+        ],
+      },
+      maxWidth: {
+        page: '68rem',
       },
     },
   },

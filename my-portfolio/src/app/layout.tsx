@@ -1,12 +1,9 @@
-import Header from '@/components/Header';
-import { siteMetadata } from '@/data/metadata';
-import { personalInfo } from '@/data/personal';
+import { SiteFooter } from '@/components/SiteFooter';
+import { SiteHeader } from '@/components/SiteHeader';
+import { site } from '@/content/site';
+import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
-import { FaFacebook, FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 import './globals.css';
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Metadata } from 'next';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -19,85 +16,65 @@ const geistMono = localFont({
   weight: '100 900',
 });
 
-export const metadata: Metadata = siteMetadata;
+const description = `${site.name} is an ${site.role} building and shipping original apps for the App Store.`;
 
-const iconMap: { [key: string]: React.ComponentType<{ size?: number }> } = {
-  FaFacebook,
-  FaGithub,
-  FaLinkedin,
-  FaTwitter,
+export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
+  title: {
+    default: `${site.name} · ${site.role}`,
+    template: `%s · ${site.name}`,
+  },
+  description,
+  authors: [{ name: site.name, url: site.url }],
+  openGraph: {
+    type: 'website',
+    siteName: site.name,
+    title: `${site.name} · ${site.role}`,
+    description,
+    url: site.url,
+    locale: 'en_US',
+  },
+  twitter: { card: 'summary', creator: '@dustin_doan_315' },
 };
 
-const hoverClasses: Record<string, string> = {
-  FaFacebook: 'hover:text-blue-500',
-  FaGithub: 'hover:text-gray-400',
-  FaLinkedin: 'hover:text-blue-400',
-  FaTwitter: 'hover:text-sky-400',
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#fbfbfd' },
+    { media: '(prefers-color-scheme: dark)', color: '#0b0b0c' },
+  ],
 };
 
-const SocialLink = ({
-  href,
-  label,
-  Icon,
-  iconName,
-}: {
-  href: string;
-  label: string;
-  Icon: any;
-  iconName: string;
-}) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    className={`text-gray-400 transition-colors duration-200 ${hoverClasses[iconName] ?? 'hover:text-white'}`}
-    aria-label={label}
-  >
-    <Icon size={24} />
-  </a>
-);
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  jobTitle: site.role,
+  url: site.url,
+  email: `mailto:${site.email}`,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Hồ Chí Minh City',
+    addressCountry: 'VN',
+  },
+  sameAs: site.socials.map((s) => s.href),
+};
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <div className="flex flex-col min-h-screen bg-gray-950 text-gray-200">
-          {/* Header */}
-          <Header />
-          <main className="flex-grow">{children}</main>
-          <footer className="bg-gray-900 text-gray-300 py-10">
-            <div className="container mx-auto px-4 text-center">
-              <p className="text-2xl font-bold text-white mb-1">
-                {personalInfo.name}
-              </p>
-              <p className="text-sm text-gray-400 mb-6">
-                Senior Mobile Engineer · React Native Specialist · Full-Stack Developer
-              </p>
-              <div className="flex justify-center space-x-6 mb-6">
-                {personalInfo.socialLinks.map((social) => {
-                  const Icon = iconMap[social.icon] ?? FaGithub;
-                  return (
-                    <SocialLink
-                      key={social.url}
-                      href={social.url}
-                      label={social.platform}
-                      Icon={Icon}
-                      iconName={social.icon}
-                    />
-                  );
-                })}
-              </div>
-              <div className="border-t border-gray-700 pt-6 text-xs text-gray-500">
-                © {new Date().getFullYear()} {personalInfo.name}. Built with Next.js &amp; Tailwind CSS.
-              </div>
-            </div>
-          </footer>
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <div className="flex min-h-screen flex-col">
+          <SiteHeader />
+          <main className="flex-1">{children}</main>
+          <SiteFooter />
         </div>
       </body>
     </html>
